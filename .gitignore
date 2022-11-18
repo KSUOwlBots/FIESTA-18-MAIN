@@ -1,0 +1,4 @@
+# Ensure that when using a project after changes are made to the code, you use `pros make all` so you completely compile the code again
+*.idx
+*.d
+*.o
