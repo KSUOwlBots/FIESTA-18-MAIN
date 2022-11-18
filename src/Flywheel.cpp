@@ -6,8 +6,8 @@
 
 bool flywheel = false;
 
-
-double speeds[5];
+#define smoothSize 5
+double speeds[smoothSize];
 double kP = 4;
 double kI = 1;
 double kD = 0;
@@ -43,10 +43,11 @@ void flywheelControlledSpeed(double target)
 {
     error = target - getVelocity();
 
-    for (int i = 0; i < 4; i++)
-    { speeds[i] = speeds[i+1]; }
-    speeds[4] = mean(abs(FlywheelMotor1.get_actual_velocity()),
-                     abs(FlywheelMotor2.get_actual_velocity()));
+    for (int i = 0; i < smoothSize-1; i++) {
+      speeds[i] = speeds[i + 1];
+    }
+    speeds[smoothSize-1] = mean(abs(FlywheelMotor1.get_actual_velocity()),
+                              abs(FlywheelMotor2.get_actual_velocity()));
 
     integral = clamp(integral + error, 10, -10);
     if (abs(error) > 20) {
@@ -65,7 +66,9 @@ void FlywheelOPCTRL()
         flywheel = !flywheel;
         previousError = 0;
         integral = 0;
-        for (int i = 0; i < 5; i++) { speeds[i] = 0; }
+        for (int i = 0; i < smoothSize; i++) {
+          speeds[i] = 0;
+        }
         std::cout << endl << endl << "new power:" << endl << endl;
     }
 
