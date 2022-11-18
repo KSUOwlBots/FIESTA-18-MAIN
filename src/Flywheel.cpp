@@ -10,9 +10,7 @@ bool flywheel = false;
 double speeds[smoothSize];
 double kP = 4;
 double kI = 1;
-double kD = 0;
 double integral = 0;
-double previousError = 0;
 double error = 0;
 double speed = 0;
 
@@ -39,24 +37,30 @@ double getVelocity()
     return (speeds[0]+speeds[1]+speeds[2]+speeds[3]+speeds[4])/5;
 }
 
-void flywheelControlledSpeed(double target)
+void flywheelControlledSpeed(double targetRPM)
 {
-    error = target - getVelocity();
+  // The error of the system is equal to the difference in velocity
+  error = (targetRPM/36) - getVelocity();
 
-    for (int i = 0; i < smoothSize-1; i++) {
-      speeds[i] = speeds[i + 1];
-    }
-    speeds[smoothSize-1] = mean(abs(FlywheelMotor1.get_actual_velocity()),
-                              abs(FlywheelMotor2.get_actual_velocity()));
+  // Smooth the inputs across the 5 most recent values
+  // This reduces noise in the data
+  for (int i = 0; i < smoothSize-1; i++) { speeds[i] = speeds[i + 1]; }
+  speeds[smoothSize-1] = mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
 
-    integral = clamp(integral + error, 10, -10);
-    if (abs(error) > 20) {
-      integral = 0;
-    }
+  // The integral increases/decreases by 1 over time
+  // This compensates for the error value not getting the motor powers to what we want
+  // Clamp the integral to 10 -> -10 to ensure it doesn't grow too powerful
+  // Reset the integral if the error is over 20
+  integral = clamp(integral+ez::util::sgn(error), 10, -10);
+  if (abs(error) > 20) { integral = 0; }
 
-    speed = clamp(kP*error + target + kI*integral, 100, 0);
-    power(speed);
-    std::cout << (int)getVelocity() << "\t" << (int)error << "\t" << (int)integral <<"\t"<< (int)speed << endl;
+  // Speed is equal to error + target + integral
+  // target gets us ~88% there
+  // Error gets us 9% more
+  // Integral gets the remaining 3%
+  speed = clamp(kP*error + (targetRPM/36) + kI*integral, 100, 0);
+  power(speed);
+  std::cout << (int)(getVelocity()*36) << "\t" << (int)error << "\t" << (int)integral <<"\t"<< (int)speed << endl;
 }
 
 void FlywheelOPCTRL()
@@ -64,7 +68,6 @@ void FlywheelOPCTRL()
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP))
     {
         flywheel = !flywheel;
-        previousError = 0;
         integral = 0;
         for (int i = 0; i < smoothSize; i++) {
           speeds[i] = 0;
