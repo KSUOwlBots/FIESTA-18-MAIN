@@ -7,9 +7,10 @@
 bool flywheel = false;
 
 #define smoothSize 5
+#define integralSmoothing 2
 double speeds[smoothSize];
 double kP = 4;
-double kI = 1;
+double kI = (1.0/integralSmoothing);
 double integral = 0;
 double error = 0;
 double speed = 0;
@@ -49,9 +50,9 @@ void flywheelControlledSpeed(double targetRPM)
 
   // The integral increases/decreases by 1 over time
   // This compensates for the error value not getting the motor powers to what we want
-  // Clamp the integral to 10 -> -10 to ensure it doesn't grow too powerful
+  // Clamp the integral to ensure it doesn't grow too powerful
   // Reset the integral if the error is over 20
-  integral = clamp(integral+ez::util::sgn(error), 10, -10);
+  integral = clamp(integral+ez::util::sgn(error), 10*integralSmoothing, -10*integralSmoothing);
   if (abs(error) > 20) { integral = 0; }
 
   // Speed is equal to error + target + integral
