@@ -6,14 +6,15 @@
 
 bool flywheel = false;
 
-#define smoothSize 5
+#define smoothSize 3
 #define integralSmoothing 2
 double speeds[smoothSize];
-double kP = 4;
+double kP = 1.0;
 double kI = (1.0/integralSmoothing);
 double integral = 0;
 double error = 0;
 double speed = 0;
+double currentVelocity = 0;
 
 double mean(double val1, double val2) { return ((val1 + val2) / 2); }
 
@@ -35,13 +36,18 @@ int getTemperature()
 double getVelocity()
 {
     // return abs(FlywheelMotor1.get_actual_velocity());
-    return (speeds[0]+speeds[1]+speeds[2]+speeds[3]+speeds[4])/5;
+    double sum = 0;
+    for (int i = 0; i < smoothSize; i++)
+    { sum += speeds[i]; }
+    return sum/smoothSize;
 }
 
 void flywheelControlledSpeed(double targetRPM)
 {
+  currentVelocity = (getVelocity()*36);
+
   // The error of the system is equal to the difference in velocity
-  error = (targetRPM/36) - getVelocity();
+  error = targetRPM - currentVelocity;
 
   // Smooth the inputs across the 5 most recent values
   // This reduces noise in the data
@@ -53,15 +59,15 @@ void flywheelControlledSpeed(double targetRPM)
   // Clamp the integral to ensure it doesn't grow too powerful
   // Reset the integral if the error is over 20
   integral = clamp(integral+ez::util::sgn(error), 10*integralSmoothing, -10*integralSmoothing);
-  if (abs(error) > 20) { integral = 0; }
+  if (abs(error) > 200) { integral = 0; }
 
   // Speed is equal to error + target + integral
   // target gets us ~88% there
   // Error gets us 9% more
   // Integral gets the remaining 3%
-  speed = clamp(kP*error + (targetRPM/36) + kI*integral, 100, 0);
+  speed = clamp(kP*error + kI*integral, 100, 0);
   power(speed);
-  std::cout << (int)(getVelocity()*36) << "\t" << (int)error << "\t" << (int)integral <<"\t"<< (int)speed << endl;
+  std::cout << (int)(currentVelocity) << "\t" << (int)error << "\t" << (int)integral <<"\t"<< (int)speed << endl;
 }
 
 void FlywheelOPCTRL()
@@ -78,7 +84,7 @@ void FlywheelOPCTRL()
 
     if (flywheel)
     {
-        flywheelControlledSpeed(95);
+        flywheelControlledSpeed(3400);
     }
     
     else

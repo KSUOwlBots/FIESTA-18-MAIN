@@ -29,7 +29,7 @@ void PrintInfo(void *)
 {
   while (true)
   {
-    master.print(0, 0, "RPM: %d  ", getVelocity());
+    master.print(0, 0, "RPM: %d  ", ((int)getVelocity()));
     pros::delay(50);
     master.print(1, 0, "TMP: %d  ", getTemperature());
     pros::delay(50);
