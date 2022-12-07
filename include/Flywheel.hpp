@@ -2,6 +2,7 @@
 
 #include "api.h"
 #include "main.h"
+#include "HMA.hpp"
 
 void power(double percentage);
 double getVelocity();

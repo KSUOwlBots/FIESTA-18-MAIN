@@ -2,26 +2,17 @@
 #include "api.h"
 #include "main.h"
 #include "pros/misc.h"
-#include <queue>
+#include "QuickQueue.hpp"
+#include "HMA.hpp"
 
 bool flywheel = false;
 
-#define smoothSize 21
-#define integralSmoothing 2
-double speeds[smoothSize];
-double accels[smoothSize];
-double kP = 1.0;
-double kI = (1.0/integralSmoothing);
-double integral = 0;
-double speed = 0;
-double previousVEL = 0;
-double velocity = 0;
-double acceleration = 0;
-double currentVelocity = 0;
-double velocityError = 0;
-double accelerationError = 0;
 double kV = 1.0;
 double kA = 1.0;
+double previousVelocity = 0;
+
+HMA speeds(21);
+HMA accels(21);
 
 double mean(double val1, double val2) { return ((val1 + val2) / 2); }
 
@@ -52,42 +43,32 @@ int getTemperature()
 
 double getVelocity()
 {
-    double sum = 0;
-    for (int i = 0; i < smoothSize; i++)
-    { sum += speeds[i]; }
-    return sum/smoothSize;
-
-    // return median(speeds, smoothSize);
+    return speeds.value();
 }
 
 double getAccel()
 {
-    double sum = 0;
-    for (int i = 0; i < smoothSize; i++)
-    { sum += accels[i]; }
-    return sum / smoothSize;
-
-    // return median(accels, smoothSize);
+    return accels.value();
 }
 
 void flywheelControlledSpeed(double target)
 {
-  for (int i = 0; i < smoothSize-1; i++) { speeds[i] = speeds[i + 1]; }
-  speeds[smoothSize-1] = mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
-  velocity = getVelocity();
-  velocityError = target - velocity;
+    double newVelocity = mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
+    speeds.input(newVelocity);
+    double velocity = getVelocity();
+    double velocityError = target - velocity;
 
 
-  for (int i = 0; i < smoothSize-1; i++) { accels[i] = accels[i + 1]; }
-  accels[smoothSize-1] = (previousVEL-velocity);
-  acceleration = getAccel();
-  accelerationError = 0 - acceleration;
+    double newAcceleration = (previousVelocity-velocity);
+    accels.input(newAcceleration);
+    double acceleration = getAccel();
+    double accelerationError = 0 - acceleration;
 
 
-  speed = clamp(target + kV*velocityError + kA*accelerationError, 100, 0);
-  power(speed);
-  std::cout << velocity << "," << acceleration << "," << speed << endl;
-  previousVEL = velocity;
+    double speed = clamp(target + kV*velocityError + kA*accelerationError, 100, 0);
+    power(speed);
+    std::cout << velocity << "," << acceleration << "," << speed << endl;
+    previousVEL = velocity;
 }
 
 void FlywheelOPCTRL()
@@ -95,36 +76,15 @@ void FlywheelOPCTRL()
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP))
     {
         flywheel = !flywheel;
-        velocity = 0;
-        acceleration = 0;
         previousVEL = 0;
-        currentVelocity = 0;
-        for (int i = 0; i < smoothSize; i++) {
-          speeds[i] = 0;
-          accels[i] = 0;
-        }
+        speeds.clear();
+        accels.clear();
         std::cout << endl << endl << "new power:" << endl << endl;
     }
 
     if (flywheel)
     {
         flywheelControlledSpeed(90);
-        // for (int i = 0; i < smoothSize - 1; i++) {
-        //   speeds[i] = speeds[i + 1];
-        // }
-        // speeds[smoothSize - 1] =
-        //     mean(abs(FlywheelMotor1.get_actual_velocity()),
-        //          abs(FlywheelMotor2.get_actual_velocity()));
-        // double velo = getVelocity();
-
-        // for (int i = 0; i < smoothSize - 1; i++) {
-        //   accels[i] = accels[i + 1];
-        // }
-        // accels[smoothSize - 1] = (previousVEL-velo);
-        // double accel = getAccel();
-
-        // std::cout << velo << "," << accel << endl;
-        // previousVEL = getVelocity();
     }
     
     else
