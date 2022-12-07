@@ -2,17 +2,18 @@
 #include "api.h"
 #include "main.h"
 #include "pros/misc.h"
-#include "QuickQueue.hpp"
 #include "HMA.hpp"
 
 bool flywheel = false;
 
-double kV = 1.0;
-double kA = 1.0;
+double kV = 2.0;
+double kA = 3.0;
 double previousVelocity = 0;
 
-HMA speeds(21);
-HMA accels(21);
+HMA speeds(30);
+HMA accels(40);
+
+double integral = 0;
 
 double mean(double val1, double val2) { return ((val1 + val2) / 2); }
 
@@ -51,6 +52,35 @@ double getAccel()
     return accels.value();
 }
 
+void flywheelControlledSpeed_OLD(double targetRPM) {
+    double currentVelocity = (getVelocity() * 36);
+
+    // The error of the system is equal to the difference in velocity
+    double error = (targetRPM*36) - currentVelocity;
+
+    // Smooth the inputs across the 5 most recent values
+    // This reduces noise in the data
+    speeds.input(mean(abs(FlywheelMotor1.get_actual_velocity()),
+                      abs(FlywheelMotor2.get_actual_velocity())));
+
+        // The integral increases/decreases by 1 over time
+        // This compensates for the error value not getting the motor powers to
+        // what we want Clamp the integral to ensure it doesn't grow too
+        // powerful Reset the integral if the error is over 20
+    integral = clamp(integral + ez::util::sgn(error), 10, -10);
+    if (abs(error) > 200) {
+        integral = 0;
+    }
+
+    // Speed is equal to error + target + integral
+    // target gets us ~88% there
+    // Error gets us 9% more
+    // Integral gets the remaining 3%
+    double speed = clamp(1.0 * error + 0.5 * integral, 100, 0);
+    power(speed);
+    std::cout << currentVelocity << "," << error << "," << speed << endl;
+}
+
 void flywheelControlledSpeed(double target)
 {
     double newVelocity = mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
@@ -65,10 +95,10 @@ void flywheelControlledSpeed(double target)
     double accelerationError = 0 - acceleration;
 
 
-    double speed = clamp(target + kV*velocityError + kA*accelerationError, 100, 0);
+    double speed = clamp(target - 5 + kV*velocityError + kA*accelerationError, 100, 0);
     power(speed);
     std::cout << velocity << "," << acceleration << "," << speed << endl;
-    previousVEL = velocity;
+    previousVelocity = velocity;
 }
 
 void FlywheelOPCTRL()
@@ -76,7 +106,7 @@ void FlywheelOPCTRL()
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP))
     {
         flywheel = !flywheel;
-        previousVEL = 0;
+        previousVelocity = 0;
         speeds.clear();
         accels.clear();
         std::cout << endl << endl << "new power:" << endl << endl;

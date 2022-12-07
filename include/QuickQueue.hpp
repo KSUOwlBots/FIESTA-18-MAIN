@@ -1,7 +1,5 @@
-#pragma once
-
-#include "api.h"
-#include "main.h"
+#ifndef QuickQueue_h
+#define QuickQueue_h
 
 class QuickQueue {
 public:
@@ -18,3 +16,5 @@ public:
     double * data;
     int size;
 };
+
+#endif

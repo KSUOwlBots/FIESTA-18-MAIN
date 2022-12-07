@@ -1,7 +1,5 @@
 #include "HMA.hpp"
 
-#include "QuickQueue.hpp"
-
 HMA::HMA(int period) :wma1Input((int)(period/2)), wma2Input(period), combinedWMAs(period)
 {
     this->size = period;
