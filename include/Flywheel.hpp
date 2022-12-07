@@ -6,5 +6,5 @@
 void power(double percentage);
 double getVelocity();
 int getTemperature();
-void flywheelControlledSpeed(double targetRPM);
+void flywheelControlledSpeed(double target);
 void FlywheelOPCTRL();

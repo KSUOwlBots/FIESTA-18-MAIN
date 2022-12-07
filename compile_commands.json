@@ -215,11 +215,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/Ports.cpp.o",
-            "src\\Ports.cpp"
+            "bin/Intakes.cpp.o",
+            "src\\Intakes.cpp"
         ],
         "directory": "C:\\Users\\ktorb\\Desktop\\SpinUp VEX Code\\Fiesta-15",
-        "file": "src\\Ports.cpp"
+        "file": "src\\Intakes.cpp"
     },
     {
         "arguments": [
@@ -289,11 +289,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/Endgame.cpp.o",
-            "src\\Endgame.cpp"
+            "bin/Ports.cpp.o",
+            "src\\Ports.cpp"
         ],
         "directory": "C:\\Users\\ktorb\\Desktop\\SpinUp VEX Code\\Fiesta-15",
-        "file": "src\\Endgame.cpp"
+        "file": "src\\Ports.cpp"
     },
     {
         "arguments": [
@@ -326,11 +326,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/autons.cpp.o",
-            "src\\autons.cpp"
+            "bin/Endgame.cpp.o",
+            "src\\Endgame.cpp"
         ],
         "directory": "C:\\Users\\ktorb\\Desktop\\SpinUp VEX Code\\Fiesta-15",
-        "file": "src\\autons.cpp"
+        "file": "src\\Endgame.cpp"
     },
     {
         "arguments": [
@@ -400,11 +400,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/Intakes.cpp.o",
-            "src\\Intakes.cpp"
+            "bin/autons.cpp.o",
+            "src\\autons.cpp"
         ],
         "directory": "C:\\Users\\ktorb\\Desktop\\SpinUp VEX Code\\Fiesta-15",
-        "file": "src\\Intakes.cpp"
+        "file": "src\\autons.cpp"
     },
     {
         "arguments": [
