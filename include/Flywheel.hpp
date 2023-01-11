@@ -5,7 +5,8 @@
 #include "HMA.hpp"
 
 void power(double percentage);
-double getVelocity();
+double getFlywheelVelocity();
+double getFlywheelTarget();
 int getTemperature();
 void flywheelControlledSpeed(double target);
 void FlywheelOPCTRL();

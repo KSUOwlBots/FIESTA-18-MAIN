@@ -29,6 +29,23 @@ void Intake_Control(void *)
   }   
 }
 
+void Intake_Actuate(void *)
+{
+  while(true)
+  {
+    if ((master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)))
+    {
+      IntakeActuator.set_value(true);
+    }
+    else
+    {
+      IntakeActuator.set_value(false);
+    }
+
+    pros::delay(20);
+  }
+}
+
 void Roller_Control(void *){
   while (true)
   {
@@ -49,4 +66,9 @@ void Roller_Control(void *){
 void Intake_Auto(int x) {
     intake1.move_velocity(-x);
     intake2.move_velocity(x);
+}
+
+void Actuate_Auto(bool active)
+{
+  IntakeActuator.set_value(active);
 }

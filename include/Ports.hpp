@@ -11,4 +11,5 @@ extern pros::Motor roller;
 //ADI Ports
 extern pros::ADIDigitalOut IndexerActuator;
 extern pros::ADIAnalogIn limit_switch;
+extern pros::ADIDigitalOut IntakeActuator;
 extern pros::ADIDigitalOut Endgame;

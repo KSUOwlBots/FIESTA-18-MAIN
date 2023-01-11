@@ -4,11 +4,15 @@
 #include "pros/misc.h"
 #include "HMA.hpp"
 
+#define slowSpeed 70
+
 bool flywheel = false;
 
 double kV = 2.0;
 double kA = 3.0;
 double previousVelocity = 0;
+
+double currentTargetVelocity = slowSpeed;
 
 HMA speeds(30);
 HMA accels(40);
@@ -42,9 +46,13 @@ int getTemperature()
     return FlywheelMotor1.get_temperature();
 }
 
-double getVelocity()
+double getFlywheelVelocity()
 {
     return speeds.value();
+}
+double getFlywheelTarget()
+{
+    return currentTargetVelocity;
 }
 
 double getAccel()
@@ -53,7 +61,7 @@ double getAccel()
 }
 
 void flywheelControlledSpeed_OLD(double targetRPM) {
-    double currentVelocity = (getVelocity() * 36);
+    double currentVelocity = (getFlywheelVelocity() * 36);
 
     // The error of the system is equal to the difference in velocity
     double error = (targetRPM*36) - currentVelocity;
@@ -85,7 +93,7 @@ void flywheelControlledSpeed(double target)
 {
     double newVelocity = mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
     speeds.input(newVelocity);
-    double velocity = getVelocity();
+    double velocity = getFlywheelVelocity();
     double velocityError = target - velocity;
 
 
@@ -103,7 +111,7 @@ void flywheelControlledSpeed(double target)
 
 void FlywheelOPCTRL()
 {
-    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP))
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A))
     {
         flywheel = !flywheel;
         previousVelocity = 0;
@@ -112,9 +120,15 @@ void FlywheelOPCTRL()
         std::cout << endl << endl << "new power:" << endl << endl;
     }
 
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2))
+    {
+        if (currentTargetVelocity == 90) { currentTargetVelocity = slowSpeed; }
+        else { currentTargetVelocity = 90; }
+    }
+
     if (flywheel)
     {
-        flywheelControlledSpeed(90);
+        flywheelControlledSpeed(currentTargetVelocity);
     }
     
     else

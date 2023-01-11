@@ -6,3 +6,4 @@
 
 void IndexSingle(int count);
 void IndexOPCTRL(void *);
+void IndexAutoCtrl(int x);

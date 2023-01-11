@@ -9,7 +9,7 @@ char* SpeedLine()
 {
     char* toReturn = new char[13];
 
-    int currentVelocity = ez::util::clip_num(getVelocity(), 102, 89);
+    int currentVelocity = ez::util::clip_num(getFlywheelVelocity(), 102, 89);
 
     int i = 0;
 
@@ -29,11 +29,9 @@ void PrintInfo(void *)
 {
   while (true)
   {
-    master.print(0, 0, "RPM: %d  ", ((int)getVelocity()));
+    master.print(0, 0, "RPM: %d / %d  ", ((int)getFlywheelVelocity()), ((int)getFlywheelTarget()));
     pros::delay(50);
     master.print(1, 0, "TMP: %d  ", getTemperature());
-    pros::delay(50);
-    master.print(2, 0, SpeedLine());
 
     pros::delay(250);
   }

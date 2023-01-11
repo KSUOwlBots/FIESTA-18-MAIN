@@ -21,16 +21,16 @@
 Drive chassis(
     // Left Chassis Ports (negative port will reverse it!)
     //   the first port is the sensored port (when trackers are not used!)
-    {-15, -14, -13}
+    {1, -15, -14, -13}
 
     // Right Chassis Ports (negative port will reverse it!)
     //   the first port is the sensored port (when trackers are not used!)
     ,
-    {16, 17, 18}
+    {-10, 16, 17, 18}
 
     // IMU Port
     ,
-    4
+    9
 
     // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
     //    (or tracking wheel diameter)
@@ -48,7 +48,7 @@ Drive chassis(
     // be 2.333. eg. if your drive is 36:60 where the 60t is powered, your RATIO
     // would be 0.6.
     ,
-    1
+    1.35
 
     // Uncomment if using tracking wheels
     /*
@@ -83,7 +83,7 @@ void initialize() {
   chassis.toggle_modify_curve_with_controller(
       false); // Enables modifying the controller curve with buttons on the
              // joysticks
-  chassis.set_active_brake(0.0); // Sets the active brake kP. We recommend 0.1.
+  chassis.set_active_brake(0.05); // Sets the active brake kP. We recommend 0.1.
   chassis.set_curve_default(
       1, 1); // Defaults for curve. If using tank, only the first parameter is
              // used. (Comment this line out if you have an SD card!)
@@ -175,6 +175,8 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 
+bool antiRot = false;
+
 void opcontrol()
 {
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
@@ -182,6 +184,7 @@ void opcontrol()
   pros::Task IndexerTask(IndexOPCTRL);
   pros::Task ControllerPrintTask(PrintInfo);
   pros::Task IntakeControlTask(Intake_Control);
+  pros::Task IntakeActuation(Intake_Actuate);
 
   master.clear();
 
@@ -191,7 +194,28 @@ void opcontrol()
   {
     FlywheelOPCTRL();
 
-    chassis.arcade_flipped(ez::SINGLE);
+    if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
+    {
+      if (antiRot == true) { antiRot = false; }
+      chassis.arcade_flipped(ez::SINGLE);
+    }
+    else
+    {
+      if (antiRot == false)
+      {
+        antiRot = true;
+        chassis.imu.tare_yaw();
+        chassis.reset_drive_sensor();
+      }
+
+      double rotation = ez::util::clip_num(chassis.imu.get_yaw()*2, 45, -45);
+      double rightError = ez::util::clip_num(chassis.right_sensor(), 45, -45);
+      double leftError = ez::util::clip_num(chassis.left_sensor(), 45, -45);
+      double forBackError = -((rightError+leftError)/2);
+
+      chassis.set_tank(-rotation + forBackError, rotation + forBackError);
+      
+    }
 
     pros::delay(ez::util::DELAY_TIME);
   }

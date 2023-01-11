@@ -3,8 +3,10 @@
 #include "main.h"
 #include "pros/misc.h"
 
-const int indexerRiseTime = 400;
-const int indexerFallTime = 100;
+const int indexerRiseTime = 350;
+const int indexerFallTime = 200;
+bool HopperDetectionLoopBreak = false;
+bool brakeState = false;
 
 void IndexCount(int count)
 {
@@ -21,11 +23,13 @@ void IndexOPCTRL(void *)
 {
     while(true)
     {
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
         {
-            IndexCount(1);
+            IndexCount(1);           
         }
 
         pros::delay(ez::util::DELAY_TIME);
     }
 }
+
+void IndexAutoCtrl(int x) { IndexCount(x); }
