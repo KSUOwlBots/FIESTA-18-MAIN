@@ -1,5 +1,5 @@
 a = flywheel                    +
-l2 = rpm change                 
+l2 = rpm change                 +
 l1 = indexer                    +
 up = intake actuate             +
 r1/r2 = intake/outtake          +
