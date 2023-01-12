@@ -1,6 +1,7 @@
 #include "main.h"
 #include "ControllerPrinter.hpp"
 #include "EZ-Template/util.hpp"
+#include "Endgame.hpp"
 #include "Indexer.hpp"
 #include "Intakes.hpp"
 #include "Flywheel.hpp"
@@ -185,6 +186,7 @@ void opcontrol()
   pros::Task ControllerPrintTask(PrintInfo);
   pros::Task IntakeControlTask(Intake_Control);
   pros::Task IntakeActuation(Intake_Actuate);
+  pros::Task Endgame(Endgame_Fire);
 
   master.clear();
 
@@ -194,7 +196,9 @@ void opcontrol()
   {
     FlywheelOPCTRL();
 
-    if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
+    chassis.arcade_flipped(SINGLE);
+
+   /* if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
     {
       if (antiRot == true) { antiRot = false; }
       chassis.arcade_flipped(ez::SINGLE);
@@ -216,6 +220,7 @@ void opcontrol()
       chassis.set_tank(-rotation + forBackError, rotation + forBackError);
       
     }
+    */
 
     pros::delay(ez::util::DELAY_TIME);
   }
