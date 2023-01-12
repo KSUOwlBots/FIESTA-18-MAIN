@@ -16,4 +16,4 @@ pros::Distance Hopper(6);
 pros::ADIDigitalOut IndexerActuator('H');
 pros::ADIAnalogIn limit_switch('B');
 pros::ADIDigitalOut IntakeActuator('G');
-pros::ADIDigitalOut Endgame('C', true);
+pros::ADIDigitalOut Endgame('A', true);

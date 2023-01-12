@@ -7,7 +7,7 @@ void Endgame_Fire(void *)
 {
   while (true)
   {
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT))
     {
       Endgame.set_value(true);
     }
