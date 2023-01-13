@@ -4,7 +4,7 @@
 #include "pros/misc.h"
 #include "HMA.hpp"
 
-#define slowSpeed 70
+#define slowSpeed 72
 
 bool flywheel = false;
 
@@ -135,4 +135,10 @@ void FlywheelOPCTRL()
     {
         power(0);
     }
+}
+
+void FlywheelAutoCtrl(double target)
+{
+    previousVelocity = 0;
+    flywheelControlledSpeed(target);
 }

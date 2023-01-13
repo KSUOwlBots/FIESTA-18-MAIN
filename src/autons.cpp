@@ -1,3 +1,5 @@
+#include "Flywheel.hpp"
+#include "Indexer.hpp"
 #include "Intakes.hpp"
 #include "main.h"
 #include "pros/rtos.h"
@@ -180,231 +182,73 @@ void Disco_Auto_Left() {
 **    |_____/   |_|\_\   |_|  |_|  |_|  |___/
 */
 
-void Disco_Skills()
+void Fiesta_Roller_Complex()
 {
+  FlywheelAutoCtrl(30);
+  Actuate_Auto(true);
 
-  Intake_Auto(600);
-
-  chassis.set_drive_pid(-16, 60);
+  chassis.set_drive_pid(8, 30);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(90, TURN_SPEED);
+  chassis.set_turn_pid(-11, 30);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(-10, 60);
-  chassis.wait_drive();
-
-  pros::delay(250);
-
-  chassis.set_drive_pid(4, 60);
-
-  pros::delay(250);
-
-  chassis.set_turn_pid(-80, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(5, 60);
-
-  pros::delay(250);
+  Intake_Auto(-600);
 
   pros::delay(1000);
 
-  chassis.set_drive_pid(-18, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-180, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-18, 30);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(18, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-18, 30);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(18, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-18, 30);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(18, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-85, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(18, 60);
-  chassis.wait_drive();
-
-  pros::delay(250);
-
-
-  pros::delay(1000);
-
-  chassis.set_drive_pid(-18, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-180, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-18, 30);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(18, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-18, 30);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(18, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-18, 30);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(18, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-85, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(18, 60);
-  chassis.wait_drive();
-
-  pros::delay(250);
-
-
-  pros::delay(250);
-
-  chassis.set_drive_pid(-6, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(0, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-36, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(45, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-48, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-15, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(48, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(10, 60);
-  chassis.wait_drive();
-
-  pros::delay(250);
-
-  pros::delay(250);
-
-  chassis.set_turn_pid(0, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-36, DRIVE_SPEED, true);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-45, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-18, DRIVE_SPEED);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-24, 30);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(42, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(0, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(36, DRIVE_SPEED, true);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(10, 60);
-  chassis.wait_drive();
-
-  pros::delay(250);
-
-  pros::delay(250);
-
-  chassis.set_turn_pid(0, 60);
-  chassis.wait_drive();
-
-  Intake_Auto(0);
-
-  chassis.set_drive_pid(-56, DRIVE_SPEED, true);
-  chassis.wait_drive();
-  
-  chassis.set_turn_pid(90, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-24, DRIVE_SPEED);
-  chassis.wait_drive();
-
-  pros::delay(100);
-
-  pros::delay(1000);
-
-  chassis.set_drive_pid(28, 60);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(0, 60);
-  chassis.wait_drive();
-  Intake_Auto(600);
-
-  chassis.set_drive_pid(-12, 60);
-  chassis.wait_drive();
-
-  pros::delay(500);
-  Intake_Auto(0);
-
-  chassis.set_drive_pid(-24, DRIVE_SPEED);
-  chassis.wait_drive();
-
-  pros::delay(100);
+  IndexAutoCtrl(1);
 
   pros::delay(500);
 
-  chassis.set_drive_pid(24, DRIVE_SPEED);
+  IndexAutoCtrl(1);
+
+  Intake_Auto(600);
+
+  pros::delay(50);
+
+  Actuate_Auto(false);
+
+  pros::delay(2500);
+
+  chassis.set_drive_pid(-6, 75);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-135, 60);
+  chassis.set_drive_pid(6, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(12, DRIVE_SPEED);
+  pros::delay(1000);
+
+  IndexAutoCtrl(1);
+  pros::delay(500);
+  IndexAutoCtrl(1);
+  pros::delay(500);
+  IndexAutoCtrl(1);
+
+  Intake_Auto(600);
+
+  pros::delay(500);
+
+  chassis.set_turn_pid(-130, 45);
   chassis.wait_drive();
 
-  Endgame_fire_Auto(1);
+  chassis.set_drive_pid(26, 45);
+  chassis.wait_drive();
 
+  chassis.set_drive_pid(-26, -45);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-11, 45);
+  chassis.wait_drive();
+
+  pros::delay(500);
+
+  IndexAutoCtrl(1);
+  pros::delay(500);
+  IndexAutoCtrl(1);
+  pros::delay(500);
+  IndexAutoCtrl(1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ///
 // Turn Example
 ///
