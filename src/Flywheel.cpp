@@ -4,7 +4,25 @@
 #include "pros/misc.h"
 #include "HMA.hpp"
 
-#define slowSpeed 72
+
+/*
+
+I should eventually make a new version of flywheel code where its the same 
+velocity control for both close and far ranges, but with a smaller moving 
+average for the closer ranges to reduce rise times when shooting close range.
+
+I should also make a single cohesive big settings file so that settings for 
+the robot can be changed without directly going into the code to do anything.
+
+I should also also make different indexing speeds for the different distances
+when firing to make it easier. Not sure if it would be very helpful, but
+sure why not go ahead and add it as well. :shrug:
+
+*/
+
+
+#define slowSpeed 75
+#define highSpeed 90
 
 bool flywheel = false;
 
@@ -14,6 +32,7 @@ double previousVelocity = 0;
 
 double currentTargetVelocity = slowSpeed;
 
+//30, 40
 HMA speeds(30);
 HMA accels(40);
 
@@ -122,8 +141,21 @@ void FlywheelOPCTRL()
 
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2))
     {
-        if (currentTargetVelocity == 90) { currentTargetVelocity = slowSpeed; }
-        else { currentTargetVelocity = 90; }
+        if (currentTargetVelocity == highSpeed) 
+        {
+            currentTargetVelocity = slowSpeed; 
+            Tongue.set_value(false);
+        }
+        else {
+            currentTargetVelocity = highSpeed; 
+            Tongue.set_value(true);
+            }
+    }
+
+    else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT))
+    {
+        currentTargetVelocity = slowSpeed;
+        Tongue.set_value(true);
     }
 
     if (flywheel)

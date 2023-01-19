@@ -13,7 +13,7 @@ pros::Motor roller(11, MOTOR_GEARSET_36);
 pros::Distance Hopper(6);
 
 //ADI Ports
-pros::ADIDigitalOut IndexerActuator('H');
-pros::ADIAnalogIn limit_switch('B');
+pros::ADIDigitalOut IndexerActuator('H', false);
 pros::ADIDigitalOut IntakeActuator('G');
-pros::ADIDigitalOut Endgame('A', true);
+pros::ADIDigitalOut Endgame('A', false);
+pros::ADIDigitalOut Tongue('F');
