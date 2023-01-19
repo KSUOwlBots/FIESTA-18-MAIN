@@ -29,10 +29,13 @@ void PrintInfo(void *)
 {
   while (true)
   {
-    master.print(0, 0, "RPM: %d / %d  ", ((int)getFlywheelVelocity()), ((int)getFlywheelTarget()));
+    if (getFlywheelTarget() > 80)
+    {  master.print(0, 0, "RPM: %d / %d  ", ((int)getFlywheelVelocity()), ((int)getFlywheelTarget()));  }
+    else
+    {  master.print(0, 0, "RPM: %d / %d  ", ((int)getFlywheelVelocityCheap()), ((int)getFlywheelTarget()));}
+    
     pros::delay(50);
     master.print(1, 0, "TMP: %d  ", getTemperature());
-
     pros::delay(250);
   }
 }

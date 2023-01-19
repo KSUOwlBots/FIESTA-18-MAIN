@@ -21,7 +21,7 @@ sure why not go ahead and add it as well. :shrug:
 */
 
 
-#define slowSpeed 75
+#define slowSpeed 70
 #define highSpeed 90
 
 bool flywheel = false;
@@ -69,6 +69,12 @@ double getFlywheelVelocity()
 {
     return speeds.value();
 }
+
+double getFlywheelVelocityCheap()
+{
+    return mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
+}
+
 double getFlywheelTarget()
 {
     return currentTargetVelocity;
@@ -77,35 +83,6 @@ double getFlywheelTarget()
 double getAccel()
 {
     return accels.value();
-}
-
-void flywheelControlledSpeed_OLD(double targetRPM) {
-    double currentVelocity = (getFlywheelVelocity() * 36);
-
-    // The error of the system is equal to the difference in velocity
-    double error = (targetRPM*36) - currentVelocity;
-
-    // Smooth the inputs across the 5 most recent values
-    // This reduces noise in the data
-    speeds.input(mean(abs(FlywheelMotor1.get_actual_velocity()),
-                      abs(FlywheelMotor2.get_actual_velocity())));
-
-        // The integral increases/decreases by 1 over time
-        // This compensates for the error value not getting the motor powers to
-        // what we want Clamp the integral to ensure it doesn't grow too
-        // powerful Reset the integral if the error is over 20
-    integral = clamp(integral + ez::util::sgn(error), 10, -10);
-    if (abs(error) > 200) {
-        integral = 0;
-    }
-
-    // Speed is equal to error + target + integral
-    // target gets us ~88% there
-    // Error gets us 9% more
-    // Integral gets the remaining 3%
-    double speed = clamp(1.0 * error + 0.5 * integral, 100, 0);
-    power(speed);
-    std::cout << currentVelocity << "," << error << "," << speed << endl;
 }
 
 void flywheelControlledSpeed(double target)
@@ -128,6 +105,14 @@ void flywheelControlledSpeed(double target)
     previousVelocity = velocity;
 }
 
+void flywheelControlledSpeedCheap(double target)
+{
+    if (getFlywheelVelocityCheap() < target)
+    { power(100); }
+    else
+    { power(slowSpeed); }
+}
+
 void FlywheelOPCTRL()
 {
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A))
@@ -146,10 +131,11 @@ void FlywheelOPCTRL()
             currentTargetVelocity = slowSpeed; 
             Tongue.set_value(false);
         }
-        else {
+        else
+        {
             currentTargetVelocity = highSpeed; 
             Tongue.set_value(true);
-            }
+        }
     }
 
     else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT))
@@ -158,9 +144,13 @@ void FlywheelOPCTRL()
         Tongue.set_value(true);
     }
 
-    if (flywheel)
+    if (flywheel && currentTargetVelocity == highSpeed)
     {
         flywheelControlledSpeed(currentTargetVelocity);
+    }
+    if (flywheel && currentTargetVelocity == slowSpeed)
+    {
+        flywheelControlledSpeedCheap(currentTargetVelocity);
     }
     
     else

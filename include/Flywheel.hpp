@@ -11,3 +11,4 @@ int getTemperature();
 void flywheelControlledSpeed(double target);
 void FlywheelOPCTRL();
 void FlywheelAutoCtrl(double target);
+double getFlywheelVelocityCheap();

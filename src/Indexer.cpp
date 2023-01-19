@@ -3,7 +3,7 @@
 #include "main.h"
 #include "pros/misc.h"
 
-const int indexerRiseTime = 150;
+const int indexerRiseTime = 200;
 const int indexerFallTime = 125;
 bool HopperDetectionLoopBreak = false;
 bool brakeState = false;
