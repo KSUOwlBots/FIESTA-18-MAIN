@@ -69,96 +69,112 @@ void modified_exit_condition() {
   chassis.set_exit_condition(chassis.drive_exit, 80, 50, 300, 150, 500, 500);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // START OF DISCO AUTOS
 
-void Disco_Auto_Left() {
+void Disco_Auto_Left()
+{
+  // Short delay to make me feel better :)
+  pros::delay(300);
 
+  // Setup
+  pros::Task IndexerTask(FlywheelAutoCtrl);
+  newFlywheelVelocity(87);
+  Actuate_Auto(true);
+  Tongue.set_value(true);
 
-  Intake_Auto(10);
-
-  chassis.set_drive_pid(-48, DRIVE_SPEED, true);
+  // Drive towards and aim at goal
+  chassis.set_drive_pid(10, 75, true);
   chassis.wait_drive();
-
-  chassis.set_turn_pid(135, 60);
+  chassis.set_turn_pid(-12, 35);
   chassis.wait_drive();
+  pros::delay(1000);
 
-  chassis.set_drive_pid(3, 20, false);
-  chassis.wait_drive();
-
-  pros::delay(250);
-
-  pros::delay(1500);
-
-  Intake_Auto(-600);
-
-  pros::delay(50);
-
+  // Shoot 2 preloads
+  IndexAutoCtrl(1);
+  pros::delay(650);
+  IndexAutoCtrl(1);
+  pros::delay(500);
+  
+  // Collect 1st 3-stack
   Intake_Auto(600);
+  Actuate_Auto(false);
+  pros::delay(4000);
+  Intake_Auto(0);
+  pros::delay(300);
 
-  chassis.set_turn_pid(145, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(-20, 20, false);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(20, 20, false);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(135, TURN_SPEED);
-  chassis.wait_drive();
-
+  // Shoot 3 shots
+  IndexAutoCtrl(1);
+  pros::delay(850);
+  IndexAutoCtrl(1);
+  pros::delay(650);
+  IndexAutoCtrl(1);
   pros::delay(250);
 
-  pros::delay(1500);
-
-  chassis.set_drive_pid(-12, 40, false);
+  // Return to starting position (a little farther back)
+  chassis.set_turn_pid(12, 35);
+  chassis.wait_drive();
+  chassis.set_drive_pid(-19, 75, true);
   chassis.wait_drive();
 
-  chassis.set_swing_pid(ez::RIGHT_SWING, 175, 40);
+  // Turn to 2nd 3-stack
+  chassis.set_turn_pid(45, 35);
   chassis.wait_drive();
+  Intake_Auto(600);
+  Actuate_Auto(true);
 
-  chassis.set_drive_pid(-30, 50, false);
+  // Drive towards 2nd 3-stack
+  chassis.set_drive_pid(28, 75);
   chassis.wait_drive();
-
-  chassis.set_drive_pid(30, 75, false);
-  chassis.wait_drive();
-
-  chassis.set_swing_pid(ez::RIGHT_SWING, 135, 40);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(12, 40, false);
-  chassis.wait_drive();
-
   pros::delay(250);
 
-  pros::delay(1500);
+  // Get 2nd 3-stack
+  Actuate_Auto(false);
+  pros::delay(4000);
+  Intake_Auto(0);
 
-  chassis.set_drive_pid(-6, 40, false);
+  // Turn to goal and get in shooting position
+  chassis.set_turn_pid(-21.5, 35);
   chassis.wait_drive();
-
-  chassis.set_turn_pid(225, TURN_SPEED);
+  chassis.set_drive_pid(5, 75);
   chassis.wait_drive();
+  pros::delay(1000);
 
-  chassis.set_drive_pid(-40, DRIVE_SPEED, false);
-  chassis.wait_drive();
-
+  // Shoot 3 shots
+  IndexAutoCtrl(1);
+  pros::delay(850);
+  IndexAutoCtrl(1);
+  pros::delay(650);
+  IndexAutoCtrl(1);
   pros::delay(250);
 
-  chassis.set_drive_pid(-12, 40, false);
+  // Get single disc
+  Intake_Auto(600);
+  chassis.set_drive_pid(5, 75);
   chassis.wait_drive();
-
-  chassis.set_drive_pid(52, DRIVE_SPEED, false);
+  pros::delay(1000);
+  chassis.set_drive_pid(-5, 75);
   chassis.wait_drive();
+  pros::delay(1000);
 
-  chassis.set_turn_pid(135, 60);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(6, 40, false);
-  chassis.wait_drive();
-
-  pros::delay(250);
-
-  pros::delay(1500);
+  // Shoot 1 shot
+  IndexAutoCtrl(1);
 }
 
 
@@ -184,7 +200,8 @@ void Disco_Auto_Left() {
 
 void Fiesta_Roller_Complex()
 {
-  FlywheelAutoCtrl(30);
+  pros::Task IndexerTask(FlywheelAutoCtrl);
+  newFlywheelVelocity(30);
   Actuate_Auto(true);
 
   chassis.set_drive_pid(8, 30);

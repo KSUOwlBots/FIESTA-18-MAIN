@@ -1,5 +1,6 @@
 #include "Flywheel.hpp"
 #include "api.h"
+#include "Ports.hpp"
 #include "main.h"
 #include "pros/misc.h"
 #include "HMA.hpp"
@@ -26,7 +27,7 @@ sure why not go ahead and add it as well. :shrug:
 
 bool flywheel = false;
 
-double kV = 2.0;
+double kV = 3.0;
 double kA = 3.0;
 double previousVelocity = 0;
 
@@ -72,6 +73,7 @@ double getFlywheelVelocity()
 
 double getFlywheelVelocityCheap()
 {
+    // return pros::c::motor_get_actual_velocity(11);
     return mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
 }
 
@@ -83,6 +85,11 @@ double getFlywheelTarget()
 double getAccel()
 {
     return accels.value();
+}
+
+void newFlywheelVelocity(double target)
+{
+    currentTargetVelocity = target;
 }
 
 void flywheelControlledSpeed(double target)
@@ -101,7 +108,7 @@ void flywheelControlledSpeed(double target)
 
     double speed = clamp(target - 5 + kV*velocityError + kA*accelerationError, 100, 0);
     power(speed);
-    std::cout << velocity << "," << acceleration << "," << speed << endl;
+    std::cout << target << "\t" << velocity << "\t" << getFlywheelVelocityCheap() << "\t" << acceleration << "\t" << speed << std::endl;
     previousVelocity = velocity;
 }
 
@@ -121,7 +128,6 @@ void FlywheelOPCTRL()
         previousVelocity = 0;
         speeds.clear();
         accels.clear();
-        std::cout << endl << endl << "new power:" << endl << endl;
     }
 
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2))
@@ -133,7 +139,7 @@ void FlywheelOPCTRL()
         }
         else
         {
-            currentTargetVelocity = highSpeed; 
+            currentTargetVelocity = highSpeed;
             Tongue.set_value(true);
         }
     }
@@ -153,14 +159,20 @@ void FlywheelOPCTRL()
         flywheelControlledSpeedCheap(currentTargetVelocity);
     }
     
-    else
+    if (!flywheel)
     {
         power(0);
     }
 }
 
-void FlywheelAutoCtrl(double target)
+void FlywheelAutoCtrl(void *)
 {
     previousVelocity = 0;
-    flywheelControlledSpeed(target);
+    speeds.clear();
+    accels.clear();
+    while(true)
+    {
+        flywheelControlledSpeed(currentTargetVelocity);
+        pros::delay(10);
+    }
 }
