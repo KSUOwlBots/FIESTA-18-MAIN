@@ -3,6 +3,7 @@
 #include "EZ-Template/util.hpp"
 #include "Endgame.hpp"
 #include "Indexer.hpp"
+#include "Tongue.hpp"
 #include "Intakes.hpp"
 #include "Flywheel.hpp"
 #include "autons.hpp"

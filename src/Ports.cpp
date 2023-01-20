@@ -16,4 +16,4 @@ pros::Distance Hopper(6);
 pros::ADIDigitalOut IndexerActuator('H', false);
 pros::ADIDigitalOut IntakeActuator('G');
 pros::ADIDigitalOut Endgame('A', false);
-pros::ADIDigitalOut Tongue('F');
+pros::ADIDigitalOut Tongue('F', false);

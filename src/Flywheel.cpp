@@ -39,8 +39,10 @@ HMA accels(40);
 
 double integral = 0;
 
+// Returns the mean of two values
 double mean(double val1, double val2) { return ((val1 + val2) / 2); }
 
+// Returns the median of a list of values
 double median(double arrOG[], int size)
 {
     double arr[size];
@@ -51,47 +53,43 @@ double median(double arrOG[], int size)
     return (double)(arr[(size - 1) / 2] + arr[size / 2]) / 2.0;
 }
 
+// Limits val; min -> val -> max
 double clamp(double val, double max, double min) {
   return (std::max(std::min(val, max), min));
 }
 
+// Powers the flywheel using voltage (-100 -> 100)
 void power(double percentage)
 {
     FlywheelMotor1.move_voltage(-120*percentage);
     FlywheelMotor2.move_voltage(120*percentage);
 }
 
+// Gets the temperature in C of the flywheel motors
 int getTemperature()
-{
-    return FlywheelMotor1.get_temperature();
-}
+{ return mean(FlywheelMotor1.get_temperature(), FlywheelMotor2.get_temperature()); }
 
+// Gets the flywheel velocity as calculated by the advanced moving averages
 double getFlywheelVelocity()
-{
-    return speeds.value();
-}
+{ return speeds.value(); }
 
+// Gets the flywheel velocity as the average of the two flywheel motors
 double getFlywheelVelocityCheap()
-{
-    // return pros::c::motor_get_actual_velocity(11);
-    return mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
-}
+{ return mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity())); }
 
-double getFlywheelTarget()
-{
-    return currentTargetVelocity;
-}
-
+// Gets the acceleration values of the flywheel using moving averages
 double getAccel()
-{
-    return accels.value();
-}
+{ return accels.value(); }
 
+// Gets the target velocity of the flywheel
+double getFlywheelTarget()
+{ return currentTargetVelocity; }
+
+// Changes the target flywheel velocity
 void newFlywheelVelocity(double target)
-{
-    currentTargetVelocity = target;
-}
+{ currentTargetVelocity = target; }
 
+// The advanced flywheel velocity control
 void flywheelControlledSpeed(double target)
 {
     double newVelocity = mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
@@ -112,6 +110,7 @@ void flywheelControlledSpeed(double target)
     previousVelocity = velocity;
 }
 
+// The bang-bang flywheel velocity control
 void flywheelControlledSpeedCheap(double target)
 {
     if (getFlywheelVelocityCheap() < target)
@@ -120,10 +119,12 @@ void flywheelControlledSpeedCheap(double target)
     { power(slowSpeed); }
 }
 
+
 void FlywheelOPCTRL()
 {
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A))
     {
+        // new press, 
         flywheel = !flywheel;
         previousVelocity = 0;
         speeds.clear();
@@ -134,20 +135,20 @@ void FlywheelOPCTRL()
     {
         if (currentTargetVelocity == highSpeed) 
         {
-            currentTargetVelocity = slowSpeed; 
-            Tongue.set_value(false);
+            currentTargetVelocity = slowSpeed;
+            toggleTongue(true);
         }
         else
         {
             currentTargetVelocity = highSpeed;
-            Tongue.set_value(true);
+            toggleTongue(false);
         }
     }
 
     else if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT))
     {
         currentTargetVelocity = slowSpeed;
-        Tongue.set_value(true);
+        toggleTongue(false);
     }
 
     if (flywheel && currentTargetVelocity == highSpeed)
