@@ -1,6 +1,7 @@
 #include "Flywheel.hpp"
 #include "Indexer.hpp"
 #include "Intakes.hpp"
+#include "autons.hpp"
 #include "main.h"
 #include "pros/rtos.h"
 #include "pros/rtos.hpp"
@@ -100,7 +101,7 @@ void Disco_Auto_Left()
   Tongue.set_value(true);
 
   // Drive towards and aim at goal
-  chassis.set_drive_pid(10, 75, true);
+  chassis.set_drive_pid(8, 75, true);
   chassis.wait_drive();
   chassis.set_turn_pid(-12, 35);
   chassis.wait_drive();
@@ -149,11 +150,15 @@ void Disco_Auto_Left()
   pros::delay(4000);
   Intake_Auto(0);
 
+  //Drive forwards a bit again
+  chassis.set_drive_pid(2, 20);
+  chassis.wait_drive();
+
   // Turn to goal and get in shooting position
-  chassis.set_turn_pid(-21.5, 35);
+  chassis.set_turn_pid(-21, 35);
   chassis.wait_drive();
-  chassis.set_drive_pid(5, 75);
-  chassis.wait_drive();
+ // chassis.set_drive_pid(5, 75);
+  //chassis.wait_drive();
   pros::delay(1000);
 
   // Shoot 3 shots
@@ -166,29 +171,55 @@ void Disco_Auto_Left()
 
   // Get single disc
   Intake_Auto(600);
-  chassis.set_drive_pid(5, 75);
+  chassis.set_drive_pid(10, 30);
   chassis.wait_drive();
   pros::delay(1000);
-  chassis.set_drive_pid(-5, 75);
+  chassis.set_drive_pid(-10, 30);
   chassis.wait_drive();
   pros::delay(1000);
 
-  // Shoot 1 shot
+  // Shoot 1 shot and 1 reserve shot
   IndexAutoCtrl(1);
+  pros::delay(650);
+  IndexAutoCtrl(1);
+
+  pros::delay(250);
+  Intake_Auto(0);
+
+  //Go to roller and spin
+  chassis.set_turn_pid(-135, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(24, 75);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-180, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(12, 30);
+  chassis.wait_drive();
+
+  //Go under opponent high goal and wait
+
+  chassis.set_drive_pid(-6, 30);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(90, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(86, DRIVE_SPEED, true);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-45, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(12, 35);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(36000, TURN_SPEED);
+  chassis.wait_drive();
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 **     / ____|  | |      (_)  | |  | | 
@@ -200,107 +231,195 @@ void Disco_Auto_Left()
 
 void Fiesta_Roller_Complex()
 {
+  int matchloads = 0;
+
   pros::Task IndexerTask(FlywheelAutoCtrl);
-  newFlywheelVelocity(30);
-  Actuate_Auto(true);
+  newFlywheelVelocity(75);
+  Tongue.set_value(true);
 
-  chassis.set_drive_pid(8, 30);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-11, 30);
-  chassis.wait_drive();
-
-  Intake_Auto(-600);
-
+  chassis.set_turn_pid(-12, 30);
   pros::delay(1000);
 
+  //Fire preloads
   IndexAutoCtrl(1);
-
+  pros::delay(500);
+  IndexAutoCtrl(1);
   pros::delay(500);
 
+  //Run Matchloads
+  while (matchloads < 8)
+  {
+    IndexAutoCtrl(1);
+    pros::delay(500);
+    matchloads++;
+  }
+  matchloads = 0;
+
+  //Drive and Turn to Triple stack
+  chassis.set_drive_pid(14, 75);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-135, 75);
+  chassis.wait_drive();
+
+  Intake_Auto(600);
+  Actuate_Auto(true);
+
+  chassis.set_drive_pid(24, 75);
+  chassis.wait_drive();
+
+  //Pick up triple stack
+  newFlywheelVelocity(78);
+  pros::delay(500);
+  Actuate_Auto(false);
+  pros::delay(3000);
+
+  //Turn to goal and fire
+  chassis.set_turn_pid(10, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(2, 30);
+  chassis.wait_drive();
+  Intake_Auto(0);
+
+  //Fire 3 shots in game
+  pros::delay(250);
   IndexAutoCtrl(1);
+  pros::delay(500);
+  IndexAutoCtrl(1);
+  pros::delay(500);
+  IndexAutoCtrl(1);
+  pros::delay(150);
+
+  //Go for 3 line
+
+  newFlywheelVelocity(80);
+
+  chassis.set_drive_pid(-8, 50);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-45, 75);
+  chassis.wait_drive();
 
   Intake_Auto(600);
 
-  pros::delay(50);
+  chassis.set_drive_pid(68, 50);
+  chassis.wait_drive();
 
-  Actuate_Auto(false);
+  pros::delay(1000);
 
-  pros::delay(2500);
+  //Turn to da goal
+
+  chassis.set_turn_pid(75, 75);
+  chassis.wait_drive();
+
+  Intake_Auto(0);
+
+  pros::delay(250);
+  IndexAutoCtrl(1);
+  pros::delay(500);
+  IndexAutoCtrl(1);
+  pros::delay(500);
+  IndexAutoCtrl(1);
+  pros::delay(150);
+
+  //Go to roller 1
+
+  chassis.set_turn_pid(-47, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(31, DRIVE_SPEED, true);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(0, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(6, 30);
+  chassis.wait_drive();
+
+  //Get triple stack
 
   chassis.set_drive_pid(-6, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(6, 75);
+  Actuate_Auto(true);
+  Intake_Auto(600);
+
+  chassis.set_turn_pid(180, 75);
   chassis.wait_drive();
 
-  pros::delay(1000);
+  chassis.set_drive_pid(10, 75);
+  chassis.wait_drive();
 
-  IndexAutoCtrl(1);
-  pros::delay(500);
-  IndexAutoCtrl(1);
-  pros::delay(500);
-  IndexAutoCtrl(1);
+  pros::delay(250);
+  Actuate_Auto(false);
+
+  pros::delay(3000);
+
+  //Go for second roller
+
+  
+
+  chassis.set_drive_pid(12, 75);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(270, 75);
+  chassis.wait_drive();
+
+  Intake_Auto(0);
+
+  chassis.set_drive_pid(30, 75);
+  chassis.wait_drive();
+
+  //Go to matchload
 
   Intake_Auto(600);
 
-  pros::delay(500);
+  newFlywheelVelocity(75);
 
-  chassis.set_turn_pid(-130, 45);
+  chassis.set_drive_pid(-4, 30);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(26, 45);
+  chassis.set_turn_pid(-171, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(-26, -45);
+  chassis.set_drive_pid(38, 50);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-11, 45);
+  chassis.set_turn_pid(-192, 30);
   chassis.wait_drive();
 
-  pros::delay(500);
+  Intake_Auto(0);
 
-  IndexAutoCtrl(1);
-  pros::delay(500);
-  IndexAutoCtrl(1);
-  pros::delay(500);
-  IndexAutoCtrl(1);
-}
-///
-// Turn Example
-///
-void turn_example() {
-  // The first parameter is target degrees
-  // The second parameter is max speed the robot will drive at
-
-  chassis.set_turn_pid(90, TURN_SPEED);
+  chassis.set_drive_pid(-4, 30);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(45, TURN_SPEED);
+
+  //Matchload
+
+   while (matchloads < 11)
+  {
+    IndexAutoCtrl(1);
+    pros::delay(500);
+    matchloads++;
+  }
+  matchloads = 0;
+
+  //go to endgame
+
+  chassis.set_turn_pid(-170, 75);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(0, TURN_SPEED);
-  chassis.wait_drive();
-}
-
-///
-// Combining Turn + Drive
-///
-void drive_and_turn() {
-  chassis.set_drive_pid(24, DRIVE_SPEED, true);
+  chassis.set_drive_pid(-52, 100, true);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(45, TURN_SPEED);
+  chassis.set_turn_pid(-225, 75);
   chassis.wait_drive();
+  
 
-  chassis.set_turn_pid(-45, TURN_SPEED);
-  chassis.wait_drive();
 
-  chassis.set_turn_pid(0, TURN_SPEED);
-  chassis.wait_drive();
 
-  chassis.set_drive_pid(-24, DRIVE_SPEED, true);
-  chassis.wait_drive();
+
 }
 
 ///

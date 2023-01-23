@@ -22,7 +22,7 @@ sure why not go ahead and add it as well. :shrug:
 */
 
 
-#define slowSpeed 70
+#define slowSpeed 72
 #define highSpeed 90
 
 bool flywheel = false;
