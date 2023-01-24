@@ -246,7 +246,7 @@ void Fiesta_Roller_Complex()
   IndexAutoCtrl(1);
   pros::delay(500);
 
-  //Run Matchloads
+  //Run Matchloads w/ 1 extra shot
   while (matchloads < 8)
   {
     IndexAutoCtrl(1);
@@ -282,7 +282,7 @@ void Fiesta_Roller_Complex()
   chassis.wait_drive();
   Intake_Auto(0);
 
-  //Fire 3 shots in game
+  //Fire 3 shots in goal
   pros::delay(250);
   IndexAutoCtrl(1);
   pros::delay(500);
@@ -306,9 +306,9 @@ void Fiesta_Roller_Complex()
   chassis.set_drive_pid(68, 50);
   chassis.wait_drive();
 
-  pros::delay(1000);
+  pros::delay(500);
 
-  //Turn to da goal
+  //Turn to goal and fire
 
   chassis.set_turn_pid(75, 75);
   chassis.wait_drive();
@@ -356,10 +356,8 @@ void Fiesta_Roller_Complex()
 
   pros::delay(3000);
 
-  //Go for second roller
-
+  //Go for roller 2
   
-
   chassis.set_drive_pid(12, 75);
   chassis.wait_drive();
 
@@ -395,7 +393,7 @@ void Fiesta_Roller_Complex()
   chassis.wait_drive();
 
 
-  //Matchload
+  //Matchload 10 discs w/ 1 reserve
 
    while (matchloads < 11)
   {
@@ -405,7 +403,7 @@ void Fiesta_Roller_Complex()
   }
   matchloads = 0;
 
-  //go to endgame
+  //go to endgame launch pos
 
   chassis.set_turn_pid(-170, 75);
   chassis.wait_drive();
@@ -415,10 +413,6 @@ void Fiesta_Roller_Complex()
 
   chassis.set_turn_pid(-225, 75);
   chassis.wait_drive();
-  
-
-
-
 
 }
 
