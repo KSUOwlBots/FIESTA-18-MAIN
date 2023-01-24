@@ -141,43 +141,6 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/Ports.cpp.o",
-            "src\\Ports.cpp"
-        ],
-        "directory": "C:\\Users\\Ayush\\Desktop\\FiestaCode DO NOT TOUCH\\Fiesta-15",
-        "file": "src\\Ports.cpp"
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1",
-            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
-            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward",
-            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/include",
-            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/include-fixed",
-            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-            "-iquote./include/./",
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
             "bin/main.cpp.o",
             "src\\main.cpp"
         ],
@@ -289,11 +252,48 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/Indexer.cpp.o",
-            "src\\Indexer.cpp"
+            "bin/autons.cpp.o",
+            "src\\autons.cpp"
         ],
         "directory": "C:\\Users\\Ayush\\Desktop\\FiestaCode DO NOT TOUCH\\Fiesta-15",
-        "file": "src\\Indexer.cpp"
+        "file": "src\\autons.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-fno-ms-extensions",
+            "-fno-ms-compatibility",
+            "-fno-delayed-template-parsing",
+            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1",
+            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
+            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward",
+            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/include",
+            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/include-fixed",
+            "-isystemc:\\users\\ayush\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/./",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-Os",
+            "-g",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Wno-psabi",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "-funwind-tables",
+            "--std=gnu++17",
+            "-o",
+            "bin/Ports.cpp.o",
+            "src\\Ports.cpp"
+        ],
+        "directory": "C:\\Users\\Ayush\\Desktop\\FiestaCode DO NOT TOUCH\\Fiesta-15",
+        "file": "src\\Ports.cpp"
     },
     {
         "arguments": [
@@ -363,10 +363,10 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/autons.cpp.o",
-            "src\\autons.cpp"
+            "bin/Indexer.cpp.o",
+            "src\\Indexer.cpp"
         ],
         "directory": "C:\\Users\\Ayush\\Desktop\\FiestaCode DO NOT TOUCH\\Fiesta-15",
-        "file": "src\\autons.cpp"
+        "file": "src\\Indexer.cpp"
     }
 ]
