@@ -326,11 +326,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/autons.cpp.o",
-            "src\\autons.cpp"
+            "bin/Flywheel.cpp.o",
+            "src\\Flywheel.cpp"
         ],
         "directory": "C:\\Users\\Ayush\\Desktop\\FiestaCode DO NOT TOUCH\\Fiesta-15",
-        "file": "src\\autons.cpp"
+        "file": "src\\Flywheel.cpp"
     },
     {
         "arguments": [
@@ -363,10 +363,10 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/Flywheel.cpp.o",
-            "src\\Flywheel.cpp"
+            "bin/autons.cpp.o",
+            "src\\autons.cpp"
         ],
         "directory": "C:\\Users\\Ayush\\Desktop\\FiestaCode DO NOT TOUCH\\Fiesta-15",
-        "file": "src\\Flywheel.cpp"
+        "file": "src\\autons.cpp"
     }
 ]

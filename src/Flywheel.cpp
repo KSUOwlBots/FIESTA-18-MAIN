@@ -61,37 +61,44 @@ void power(double percentage)
     FlywheelMotor2.move_voltage(120*percentage);
 }
 
+//Show temps
 int getTemperature()
 {
     return FlywheelMotor1.get_temperature();
 }
 
+//Show flywheel vel
 double getFlywheelVelocity()
 {
     return speeds.value();
 }
 
+//Show flywheel vel in bang bang
 double getFlywheelVelocityCheap()
 {
     // return pros::c::motor_get_actual_velocity(11);
     return mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
 }
 
+//Get flywheel target when running
 double getFlywheelTarget()
 {
     return currentTargetVelocity;
 }
 
+//Get accel value
 double getAccel()
 {
     return accels.value();
 }
 
+//Changes flywheel vel if new input
 void newFlywheelVelocity(double target)
 {
     currentTargetVelocity = target;
 }
 
+//Long range control loop for consistent shots
 void flywheelControlledSpeed(double target)
 {
     double newVelocity = mean(abs(FlywheelMotor1.get_actual_velocity()), abs(FlywheelMotor2.get_actual_velocity()));
@@ -112,6 +119,7 @@ void flywheelControlledSpeed(double target)
     previousVelocity = velocity;
 }
 
+//Close range bang bang control loop for fast recovery
 void flywheelControlledSpeedCheap(double target)
 {
     if (getFlywheelVelocityCheap() < target)
@@ -120,6 +128,7 @@ void flywheelControlledSpeedCheap(double target)
     { power(slowSpeed); }
 }
 
+//How flywheel is controlled in driver
 void FlywheelOPCTRL()
 {
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A))
@@ -165,6 +174,7 @@ void FlywheelOPCTRL()
     }
 }
 
+//Auto control function for programming
 void FlywheelAutoCtrl(void *)
 {
     previousVelocity = 0;
