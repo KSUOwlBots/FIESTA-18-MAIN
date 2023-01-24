@@ -46,23 +46,6 @@ void Intake_Actuate(void *)
   }
 }
 
-void Roller_Control(void *){
-  while (true)
-  {
-    if ((master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)))
-    {
-      roller.move_velocity(-100);
-    }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
-      roller.move_velocity(100);
-    }
-    else {
-      roller.move_velocity(0);
-    }
-  pros::delay(20);
-
-  }
-}
 void Intake_Auto(int x) {
     intake1.move_velocity(-x);
     intake2.move_velocity(x);
@@ -71,4 +54,18 @@ void Intake_Auto(int x) {
 void Actuate_Auto(bool active)
 {
   IntakeActuator.set_value(active);
+}
+
+void Roller_Auto(int x)
+{
+  if (x == 90)
+  {
+    intake1.move_relative(-300, 600);
+    intake2.move_relative(300, 600);
+  }
+  else if (x == 180)
+  {
+    intake1.move_relative(-600, 600);
+    intake2.move_relative(600, 600);
+  }
 }

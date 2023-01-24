@@ -1,3 +1,4 @@
+#include "Endgame.hpp"
 #include "Flywheel.hpp"
 #include "Indexer.hpp"
 #include "Intakes.hpp"
@@ -235,7 +236,7 @@ void Fiesta_Roller_Complex()
 
   pros::Task IndexerTask(FlywheelAutoCtrl);
   newFlywheelVelocity(75);
-  Tongue.set_value(true);
+  //Tongue.set_value(true);
 
   chassis.set_turn_pid(-12, 30);
   pros::delay(1000);
@@ -265,12 +266,11 @@ void Fiesta_Roller_Complex()
   Intake_Auto(600);
   Actuate_Auto(true);
 
-  chassis.set_drive_pid(24, 75);
+  chassis.set_drive_pid(26, 75);
   chassis.wait_drive();
 
   //Pick up triple stack
   newFlywheelVelocity(78);
-  pros::delay(500);
   Actuate_Auto(false);
   pros::delay(3000);
 
@@ -278,7 +278,7 @@ void Fiesta_Roller_Complex()
   chassis.set_turn_pid(10, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(2, 30);
+  chassis.set_drive_pid(4, 30);
   chassis.wait_drive();
   Intake_Auto(0);
 
@@ -295,7 +295,7 @@ void Fiesta_Roller_Complex()
 
   newFlywheelVelocity(80);
 
-  chassis.set_drive_pid(-8, 50);
+  chassis.set_drive_pid(-13, 50);
   chassis.wait_drive();
 
   chassis.set_turn_pid(-45, 75);
@@ -337,6 +337,9 @@ void Fiesta_Roller_Complex()
   chassis.set_drive_pid(6, 30);
   chassis.wait_drive();
 
+  Roller_Auto(180);
+  pros::delay(500);
+
   //Get triple stack
 
   chassis.set_drive_pid(-6, 75);
@@ -369,14 +372,17 @@ void Fiesta_Roller_Complex()
   chassis.set_drive_pid(30, 75);
   chassis.wait_drive();
 
-  //Go to matchload
+  Roller_Auto(180);
+  pros::delay(500);
 
-  Intake_Auto(600);
+  //Go to matchload
 
   newFlywheelVelocity(75);
 
   chassis.set_drive_pid(-4, 30);
   chassis.wait_drive();
+
+  Intake_Auto(600);
 
   chassis.set_turn_pid(-171, 75);
   chassis.wait_drive();
@@ -389,7 +395,7 @@ void Fiesta_Roller_Complex()
 
   Intake_Auto(0);
 
-  chassis.set_drive_pid(-4, 30);
+  chassis.set_drive_pid(-1, 30);
   chassis.wait_drive();
 
 
@@ -413,6 +419,11 @@ void Fiesta_Roller_Complex()
 
   chassis.set_turn_pid(-225, 75);
   chassis.wait_drive();
+
+  pros::delay(100);
+
+  Endgame_fire_Auto(true);
+  
 
 }
 
