@@ -97,7 +97,7 @@ void Disco_Auto_Left()
 
   // Setup
   pros::Task IndexerTask(FlywheelAutoCtrl);
-  newFlywheelVelocity(87);
+  newFlywheelVelocity(88);
   Actuate_Auto(true);
   Tongue.set_value(true);
 
@@ -145,6 +145,7 @@ void Disco_Auto_Left()
   chassis.set_drive_pid(28, 75);
   chassis.wait_drive();
   pros::delay(250);
+  newFlywheelVelocity(90);
 
   // Get 2nd 3-stack
   Actuate_Auto(false);
@@ -200,10 +201,15 @@ void Disco_Auto_Left()
   chassis.set_drive_pid(12, 30);
   chassis.wait_drive();
 
+  Roller_Auto(90);
+  pros::delay(500);
+
   //Go under opponent high goal and wait
 
   chassis.set_drive_pid(-6, 30);
   chassis.wait_drive();
+
+  Intake_Auto(600);
 
   chassis.set_turn_pid(90, 75);
   chassis.wait_drive();
@@ -211,14 +217,29 @@ void Disco_Auto_Left()
   chassis.set_drive_pid(86, DRIVE_SPEED, true);
   chassis.wait_drive();
 
+
   chassis.set_turn_pid(-45, 75);
   chassis.wait_drive();
 
   chassis.set_drive_pid(12, 35);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(36000, TURN_SPEED);
+  Intake_Auto(0);
+
+  pros::delay(150);
+
+  int repeat;
+
+  while (repeat < 2)
+  {
+  IndexAutoCtrl(1);
+  chassis.set_turn_pid(225, 75);
   chassis.wait_drive();
+  IndexAutoCtrl(1);
+  chassis.set_turn_pid(-45, 75);
+  chassis.wait_drive();
+  }
+
     
 }
 

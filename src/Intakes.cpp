@@ -60,8 +60,8 @@ void Roller_Auto(int x)
 {
   if (x == 90)
   {
-    intake1.move_relative(-300, 600);
-    intake2.move_relative(300, 600);
+    intake1.move_relative(400, 600);
+    intake2.move_relative(-400, 600);
   }
   else if (x == 180)
   {

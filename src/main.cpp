@@ -149,8 +149,8 @@ void autonomous() {
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD); // Set motors to hold.  This helps
                                              // autonomous consistency.
  //ez::as::auton_selector.call_selected_auton();
- //Disco_Auto_Left();
- Fiesta_Roller_Complex();
+ Disco_Auto_Left();
+ //Fiesta_Roller_Complex();
 }
 
 /**
