@@ -12,4 +12,5 @@ extern pros::Motor roller;
 extern pros::ADIDigitalOut IndexerActuator;
 extern pros::ADIDigitalOut IntakeActuator;
 extern pros::ADIDigitalOut Endgame;
+extern pros::ADIDigitalOut SageWall;
 extern pros::ADIDigitalOut Tongue;

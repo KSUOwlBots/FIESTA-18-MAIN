@@ -7,8 +7,8 @@
 
 extern Drive chassis;
 
-void Disco_Auto_Left();
-void Fiesta_Roller_Complex();
+void Frenzy_Rush_Mid();
+void Default();
 void turn_example();
 void drive_and_turn();
 void wait_until_change_speed();

@@ -101,8 +101,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.add_autons({
-    Auton("Complex Roller Auto for Fiesta", Fiesta_Roller_Complex)});
-
+    Auton("You know exactly what the fuck goin on", Frenzy_Rush_Mid),
+    Auton("Cope Seethe", Default)});
   // Initialize chassis and auton selector
   chassis.initialize();
   ez::as::initialize();
@@ -149,8 +149,8 @@ void autonomous() {
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD); // Set motors to hold.  This helps
                                              // autonomous consistency.
  //ez::as::auton_selector.call_selected_auton();
- Disco_Auto_Left();
- //Fiesta_Roller_Complex();
+ Frenzy_Rush_Mid();
+ //Default();
 }
 
 /**
