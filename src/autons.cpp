@@ -276,7 +276,7 @@ void Default()
 
   pros::Task IndexerTask(FlywheelAutoCtrl);
   newFlywheelVelocity(75);
-  //Tongue.set_value(true);
+  Tongue.set_value(true);
 
   chassis.set_turn_pid(-12, 30);
   pros::delay(1000);
@@ -306,7 +306,7 @@ void Default()
   Intake_Auto(600);
   Actuate_Auto(true);
 
-  chassis.set_drive_pid(26, 75);
+  chassis.set_drive_pid(24, 75);
   chassis.wait_drive();
 
   //Pick up triple stack
@@ -324,7 +324,7 @@ void Default()
   chassis.set_turn_pid(10, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(4, 30);
+  chassis.set_drive_pid(2, 30);
   chassis.wait_drive();
   Intake_Auto(-600);
   Actuate_Auto(true);
@@ -349,6 +349,7 @@ void Default()
   chassis.wait_drive();
 
   Intake_Auto(600);
+  Actuate_Auto(false);
 
   chassis.set_drive_pid(68, 50);
   chassis.wait_drive();
@@ -397,7 +398,7 @@ void Default()
   chassis.set_turn_pid(180, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(10, 75);
+  chassis.set_drive_pid(12, 75);
   chassis.wait_drive();
 
   Intake_Auto(600);
@@ -411,7 +412,7 @@ void Default()
 
   //Go for roller 2
   
-  chassis.set_drive_pid(12, 75);
+  chassis.set_drive_pid(10, 75);
   chassis.wait_drive();
 
   chassis.set_turn_pid(270, 75);
@@ -461,7 +462,7 @@ void Default()
 
   //go to endgame launch pos
 
-  chassis.set_turn_pid(-170, 75);
+  chassis.set_turn_pid(-165, 75);
   chassis.wait_drive();
 
   chassis.set_drive_pid(-52, 100, true);
