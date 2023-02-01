@@ -31,7 +31,7 @@ void Endgame_Fire(void *)
   while (true)
   {
     
-    if(pros::millis() - startTime == deployTime){
+    if(pros::millis() - startTime >= deployTime){
       //if u wanna test the timer uncomment the next line
       //master.print(2,0,"valueTest");
       //eg code here

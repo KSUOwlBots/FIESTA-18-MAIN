@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "DISCO ARCADE 2",
+    "project_name": "fiesta_18",
     "target": "v5",
     "templates": {
       "EZ-Template": {
