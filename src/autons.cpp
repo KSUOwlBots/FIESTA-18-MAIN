@@ -71,23 +71,6 @@ void modified_exit_condition() {
   chassis.set_exit_condition(chassis.drive_exit, 80, 50, 300, 150, 500, 500);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // START OF DISCO AUTOS
 
 void Frenzy_Rush_Mid()

@@ -22,12 +22,12 @@
 Drive chassis(
     // Left Chassis Ports (negative port will reverse it!)
     //   the first port is the sensored port (when trackers are not used!)
-    {1, -15, -14, -13}
+    {-15, -14, -13, 2}
 
     // Right Chassis Ports (negative port will reverse it!)
     //   the first port is the sensored port (when trackers are not used!)
     ,
-    {-10, 16, 17, 18}
+    {16, 17, 18, -10}
 
     // IMU Port
     ,
@@ -86,7 +86,7 @@ void initialize() {
              // joysticks
   chassis.set_active_brake(0.05); // Sets the active brake kP. We recommend 0.1.
   chassis.set_curve_default(
-      1, 1); // Defaults for curve. If using tank, only the first parameter is
+      3, 3); // Defaults for curve. If using tank, only the first parameter is
              // used. (Comment this line out if you have an SD card!)
   default_constants(); // Set the drive to your own constants from autons.cpp!
   exit_condition_defaults(); // Set the exit conditions to your own constants
