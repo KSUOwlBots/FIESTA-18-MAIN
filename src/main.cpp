@@ -187,8 +187,33 @@ void opcontrol()
   {
     FlywheelOPCTRL();
 
-    chassis.arcade_flipped(SINGLE);
+    chassis.arcade_flipped(ez::SINGLE);
 
-    pros::delay(ez::util::DELAY_TIME);
+
+    /*if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
+    {
+      if (antiRot == true) { antiRot = false; }
+      chassis.arcade_flipped(ez::SINGLE);
+    }
+    else
+    {
+      if (antiRot == false)
+      {
+        antiRot = true;
+        chassis.imu.tare_yaw();
+        chassis.reset_drive_sensor();
+      }
+
+      double rotation = ez::util::clip_num(chassis.imu.get_yaw()*2, 45, -45);
+      double rightError = ez::util::clip_num(chassis.right_sensor(), 45, -45);
+      double leftError = ez::util::clip_num(chassis.left_sensor(), 45, -45);
+      double forBackError = -((rightError+leftError)/2);
+
+      chassis.set_tank(-rotation + forBackError, rotation + forBackError);
+      
+    }
+    */
+
+    pros::delay(ez::util::DELAY_TIME);  
   }
 }
