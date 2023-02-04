@@ -33,10 +33,8 @@ void Endgame_Fire(void *)
   {
     
     if((pros::millis() - startTime >= deployTime)||(
-      master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)&&
-      master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)&&
-      master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)&&
-      master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))){
+      master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)&&
+      master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))){
       //if u wanna test the timer uncomment the next line
       //master.print(2,0,"valueTest");
       //eg code here
