@@ -242,6 +242,8 @@ void Frenzy_Rush_Mid()
   IndexAutoCtrl(1);
   pros::delay(250);
 
+  newFlywheelVelocity(0);
+
     
 }
 
