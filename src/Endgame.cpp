@@ -41,6 +41,7 @@ void Endgame_Fire(void *)
       if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT) && presses == 1)
       {
         Endgame.set_value(true);
+        presses--
       }
       else {
         Endgame.set_value(false);
@@ -48,7 +49,7 @@ void Endgame_Fire(void *)
       }
 
       //wall code is fine here cuz the problem was with adding to the presses value
-      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))
+      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)&&presses ==0)
       {
         SageWall.set_value(true);
         pros::delay(250);
