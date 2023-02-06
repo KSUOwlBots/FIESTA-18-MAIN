@@ -10,6 +10,9 @@ void Endgame_Fire(void *)
 {
   double startTime, skillsTime, matchTime, deployTime, driveTime;
   bool wasDisabled = true;
+  //needs to be outside the while loop cuz otherwise it keeps resetting to 0
+  int presses = 0;
+
   if(wasDisabled){
     startTime = pros::millis();
   }
@@ -35,22 +38,22 @@ void Endgame_Fire(void *)
       //if u wanna test the timer uncomment the next line
       //master.print(2,0,"valueTest");
       //eg code here
-      int presses = 0;
-      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT) /*&& presses == 1*/)
+      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT) && presses == 1)
       {
         Endgame.set_value(true);
       }
       else {
         Endgame.set_value(false);
-        //SageWall.set_value(false);
+        SageWall.set_value(false);
       }
 
-      // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))
-      // {
-      //   SageWall.set_value(true);
-      //   pros::delay(250);
-      //   presses++;
-      // }
+      //wall code is fine here cuz the problem was with adding to the presses value
+      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))
+      {
+        SageWall.set_value(true);
+        pros::delay(250);
+        presses++;
+      }
 
       pros::delay(20);
    // }

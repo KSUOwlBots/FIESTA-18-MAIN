@@ -171,6 +171,9 @@ bool antiRot = false;
 
 void opcontrol()
 {
+  //hopefully properly resets fw
+  newFlywheelVelocity(0);
+
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
 
   pros::Task IndexerTask(IndexOPCTRL);
