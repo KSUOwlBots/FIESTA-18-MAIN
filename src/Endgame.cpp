@@ -10,6 +10,7 @@ void Endgame_Fire(void *)
 {
   double startTime, skillsTime, matchTime, deployTime, driveTime;
   bool wasDisabled = true;
+  bool failsafe = false
   //needs to be outside the while loop cuz otherwise it keeps resetting to 0
   int presses = 0;
 
@@ -33,11 +34,15 @@ void Endgame_Fire(void *)
 
   while (true)
   {
-    
-    //if((pros::millis() - startTime >= deployTime)){
-      //if u wanna test the timer uncomment the next line
-      //master.print(2,0,"valueTest");
-      //eg code here
+    /*
+    if((pros::millis() - startTime >= deployTime)||[button spam here]){
+      if u wanna test the timer uncomment the next line
+      master.print(2,0,"valueTest");
+      failsafe = true
+      }
+      */
+      //if(failsafe = true){
+        //eg code here
       if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT) && presses == 1)
       {
         Endgame.set_value(true);
@@ -57,7 +62,8 @@ void Endgame_Fire(void *)
       }
 
       pros::delay(20);
-   // }
+      //}
+   
     
 
   }
