@@ -36,8 +36,8 @@ void Endgame_Fire(void *)
   {
     /*
     if((pros::millis() - startTime >= deployTime)||[button spam here]){
-      if u wanna test the timer uncomment the next line
-      master.print(2,0,"valueTest");
+      //if u wanna test the timer uncomment the next line
+      //master.print(2,0,"valueTest");
       failsafe = true
       }
       */
