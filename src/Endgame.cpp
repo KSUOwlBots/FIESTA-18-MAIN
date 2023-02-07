@@ -10,7 +10,7 @@ void Endgame_Fire(void *)
 {
   double startTime, skillsTime, matchTime, deployTime, driveTime;
   bool wasDisabled = true;
-  bool failsafe = false
+  bool failsafe = false;
   //needs to be outside the while loop cuz otherwise it keeps resetting to 0
   int presses = 0;
 
@@ -46,7 +46,7 @@ void Endgame_Fire(void *)
       if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT) && presses == 1)
       {
         Endgame.set_value(true);
-        presses--
+        presses--;
       }
       else {
         Endgame.set_value(false);
