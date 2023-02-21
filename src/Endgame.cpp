@@ -23,10 +23,10 @@ void Endgame_Fire(void *)
   skillsTime = 60;
   
   //call auton selector page
-  if(ez::as::auton_selector.current_auton_page == 0){
+  if(ez::as::auton_selector.current_auton_page == 0){//first page, add statements here based on what pages are called during match
     driveTime = matchTime;
   }
-  if(ez::as::auton_selector.current_auton_page == 1){
+  if(ez::as::auton_selector.current_auton_page == 1){//second page, skills is skills u should only have one dont be bad
     driveTime = skillsTime;
   }
   //do math to set the time for deploy unlock
@@ -34,32 +34,32 @@ void Endgame_Fire(void *)
 
   while (true)
   {
-    /*
-    if((pros::millis() - startTime >= deployTime)||[button spam here]){
-      //if u wanna test the timer uncomment the next line
-      //master.print(2,0,"valueTest");
-      failsafe = true
-      }
-      */
+    
+    // if((pros::millis() - startTime >= deployTime)||(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)&&master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))){
+    //   //if u wanna test the timer uncomment the next line
+    //   //master.print(2,0,"valueTest");
+    //   failsafe = true
+    //   }
+      
       //if(failsafe = true){
         //eg code here
-      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT) && presses == 1)
+      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)/* && presses == 1*/)
       {
         Endgame.set_value(true);
-        presses--;
+      //  presses--;
       }
       else {
         Endgame.set_value(false);
-        SageWall.set_value(false);
+        //SageWall.set_value(false);
       }
 
-      //wall code is fine here cuz the problem was with adding to the presses value
-      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)&&presses ==0)
-      {
-        SageWall.set_value(true);
-        pros::delay(250);
-        presses++;
-      }
+      // //wall code is fine here cuz the problem was with adding to the presses value
+      // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)&&presses ==0)
+      // {
+      //   SageWall.set_value(true);
+      //   pros::delay(250);
+      //   presses++;
+      // }
 
       pros::delay(20);
       //}

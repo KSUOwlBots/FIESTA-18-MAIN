@@ -185,41 +185,22 @@ void opcontrol()
   master.clear();
 
   bool driveStick = true;
-  int whoDriving = 1;
+
   while (true)
   {
     FlywheelOPCTRL();
-    if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
-      driveStick = !driveStick;
-      switch(whoDriving){
-      case 1:
-      master.print(2,0,"Zaid");
-      break;
-      case 2:
-      master.print(2,0,"boots");
-      break;
-    }
-    }
-    
-    if(driveStick == true){
     chassis.arcade_flipped(ez::SINGLE);
-    whoDriving = 1;
-    }
-    if(driveStick == false){
-    chassis.arcade_standard(ez::SINGLE);
-    whoDriving = 2;
-    }
-    // if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
-    // switch(whoDriving){
-    //   case 1:
-    //   master.print(2,0,"boots");
-    //   break;
-    //   case 2:
-    //   master.print(2,0,"Zaid");
-    //   break;
+    
+    // if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
+    //   driveStick = !driveStick;
     // }
+    // if(driveStick == true){
+    // chassis.arcade_flipped(ez::SINGLE);
     // }
-
+    // if(driveStick == false){
+    // chassis.arcade_standard(ez::SINGLE);
+    // }
+    
     /*if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
     {
       if (antiRot == true) { antiRot = false; }
