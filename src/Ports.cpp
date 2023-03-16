@@ -9,8 +9,9 @@ pros::Motor FlywheelMotor2(12, MOTOR_GEARSET_36);
 pros::Motor intake1(19, MOTOR_GEARSET_6);
 pros::Motor intake2(20, MOTOR_GEARSET_6);
 pros::Motor roller(11, MOTOR_GEARSET_36);
+pros::Motor indexer(1, MOTOR_GEARSET_36);
 
-pros::Distance Hopper(6);
+pros::Distance Hopper(8);
 
 //ADI Ports
 pros::ADIDigitalOut IndexerActuator('H', false);

@@ -106,6 +106,7 @@ void initialize() {
   // Initialize chassis and auton selector
   chassis.initialize();
   ez::as::initialize();
+  
 }
 
 /**
@@ -151,6 +152,7 @@ void autonomous() {
  ez::as::auton_selector.call_selected_auton();
  //Frenzy_Rush_Mid();
  //Default();
+ 
 }
 
 /**

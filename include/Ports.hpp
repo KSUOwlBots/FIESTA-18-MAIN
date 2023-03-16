@@ -7,7 +7,9 @@ extern pros::Motor FlywheelMotor2;
 extern pros::Motor intake1;
 extern pros::Motor intake2;
 extern pros::Motor roller;
+extern pros::Motor indexer;
 
+extern pros::Distance Hopper;
 //ADI Ports
 extern pros::ADIDigitalOut IndexerActuator;
 extern pros::ADIDigitalOut IntakeActuator;
