@@ -22,16 +22,16 @@
 Drive chassis(
     // Left Chassis Ports (negative port will reverse it!)
     //   the first port is the sensored port (when trackers are not used!)
-    {-15, -14, -13, 2}
+    {-9, -8, -7, -6}
 
     // Right Chassis Ports (negative port will reverse it!)
     //   the first port is the sensored port (when trackers are not used!)
     ,
-    {16, 17, 18, -10}
+    {1, 2, 3, 4}
 
     // IMU Port
     ,
-    9
+    10
 
     // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
     //    (or tracking wheel diameter)
@@ -105,7 +105,7 @@ void initialize() {
     Auton("Cope Seethe", Default)});
   // Initialize chassis and auton selector
   chassis.initialize();
-  ez::as::initialize();
+  ez::as::initialize(); 
   
 }
 
