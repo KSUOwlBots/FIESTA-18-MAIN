@@ -5,10 +5,19 @@
 
 void Intake_Control(void *)
 {
-  bool think = false;
+  bool hopperFull = false;
+  double hopperVal = 90;
+  
   while (true)
   {
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && think == false)
+    if (Hopper.get() <= hopperVal)
+    {
+      hopperFull =true;
+    }
+    else{
+      hopperFull = false;
+    }
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && hopperFull == false)
     {
       intake1.move_velocity(-600);
       intake2.move_velocity(600);
@@ -19,16 +28,12 @@ void Intake_Control(void *)
       intake1.move_velocity(600);
       intake2.move_velocity(-600);
     }
-    
-    else if (Hopper.get() <= 90)
-    {
-      think =true;
-      intake1.move_velocity(0);
-      intake2.move_velocity(0);
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)&&hopperFull == true){
+      intake1.move_velocity(600);
+      intake2.move_velocity(-600);
     }
     else
     {
-      think = false;
       intake1.move_velocity(0);
       intake2.move_velocity(0);
     }

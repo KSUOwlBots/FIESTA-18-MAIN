@@ -12,6 +12,7 @@ extern pros::Motor indexer;
 extern pros::Distance Hopper;
 //ADI Ports
 extern pros::ADIDigitalOut IndexerActuator;
+extern pros::ADIDigitalOut hopperActuator;
 extern pros::ADIDigitalOut IntakeActuator;
 extern pros::ADIDigitalOut Endgame;
 extern pros::ADIDigitalOut SageWall;

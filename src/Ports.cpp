@@ -14,8 +14,8 @@ pros::Motor indexer(5, MOTOR_GEARSET_36, true);
 pros::Distance Hopper(16);
 
 //ADI Ports
-pros::ADIDigitalOut IndexerActuator('H', false);
-pros::ADIDigitalOut IntakeActuator('G');
+pros::ADIDigitalOut hopperActuator('G', false);
+pros::ADIDigitalOut IntakeActuator('F');
 pros::ADIDigitalOut Endgame('A', false);
 pros::ADIDigitalOut SageWall('B', false);
-pros::ADIDigitalOut Tongue('F');
+pros::ADIDigitalOut Tongue('C');

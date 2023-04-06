@@ -23,14 +23,18 @@ void IndexOPCTRL(void *)
 {
     while(true)
     {
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
         {
             indexer.move_velocity(-600);           
         }
         else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
+            hopperActuator.set_value(false);
             indexer.move_velocity(600);
         }
-        else {indexer.move_velocity(0);}
+        else {
+            indexer.move_velocity(0);
+            hopperActuator.set_value(true);
+        }
 
         pros::delay(ez::util::DELAY_TIME);
     }
