@@ -71,178 +71,201 @@ void modified_exit_condition() {
   chassis.set_exit_condition(chassis.drive_exit, 80, 50, 300, 150, 500, 500);
 }
 
-// START OF DISCO AUTOS
+// START OF Fiesta AUTOS
 
 void Frenzy_Rush_Mid()
 {
   // Setup
   pros::delay(300);
   pros::Task IndexerTask(FlywheelAutoCtrl);
-  newFlywheelVelocity(89);
+  newFlywheelVelocity(70);
   Actuate_Auto(true);
   Tongue.set_value(true);
+  hopperActuator.set_value(true);
 
-  // Drive towards and aim at goal
-  chassis.set_drive_pid(8, 75, true);
+  //do the roller
+  Roller_Auto(90);
+  pros::delay(200);
+  chassis.set_turn_pid(-9, 70);
   chassis.wait_drive();
-  chassis.set_turn_pid(-12, 35);
-  chassis.wait_drive();
-  pros::delay(1000);
+  chassis.set_drive_pid(17, 75, true);
+  pros::delay(750);
 
   // Shoot 2 preloads
   IndexAutoCtrl(1);
-  pros::delay(650);
+  pros::delay(750);
   IndexAutoCtrl(1);
-  pros::delay(500);
+  pros::delay(750);
   
   // Collect 1st 3-stack
+  hopperActuator.set_value(false);
   Intake_Auto(600);
   Actuate_Auto(false);
-  pros::delay(1000);
+  pros::delay(300);
   chassis.set_drive_pid(-6, 30);
   chassis.wait_drive();
   chassis.set_drive_pid(6, 30);
   chassis.wait_drive();
-  pros::delay(1000);
-  Intake_Auto(-600);
-  Actuate_Auto(true);
-  pros::delay(250);
-
-  // Shoot 3 shots
-  pros::delay(150);
-  IndexAutoCtrl(1);
-  pros::delay(850);
-  IndexAutoCtrl(1);
-  pros::delay(650);
-  IndexAutoCtrl(1);
-  pros::delay(250);
-
-  // Return to starting position (a little farther back)
-  chassis.set_turn_pid(12, 35);
-  chassis.wait_drive();
-  chassis.set_drive_pid(-19, 75, true);
-  chassis.wait_drive();
-
-  // Turn to 2nd 3-stack
-  chassis.set_turn_pid(45, 35);
-  chassis.wait_drive();
-  Intake_Auto(600);
-  Actuate_Auto(true);
-
-  // Drive towards 2nd 3-stack
-  chassis.set_drive_pid(26, 75);
-  chassis.wait_drive();
-  pros::delay(250);
-  newFlywheelVelocity(90);
-
-  // Get 2nd 3-stack
-  Intake_Auto(600);
-  Actuate_Auto(false);
-  pros::delay(1000);
-  chassis.set_drive_pid(-6, 30);
-  chassis.wait_drive();
-  chassis.set_drive_pid(6, 30);
-  chassis.wait_drive();
-  pros::delay(1000);
-  Intake_Auto(-600);
-  Actuate_Auto(true);
-  pros::delay(250);
-
-  //Drive forwards a bit again
-  chassis.set_drive_pid(4, 20);
-  chassis.wait_drive();
-  newFlywheelVelocity(88);
-
-  // Turn to goal and get in shooting position
-  chassis.set_turn_pid(-22, 35);
-  chassis.wait_drive();
- // chassis.set_drive_pid(5, 75);
-  //chassis.wait_drive();
-  pros::delay(250);
-
-  // Shoot 3 shots
-  IndexAutoCtrl(1);
-  pros::delay(850);
-  IndexAutoCtrl(1);
-  pros::delay(850);
-  IndexAutoCtrl(1);
-  pros::delay(250);
-
-  // Get single disc
-  Actuate_Auto(false);
-  Intake_Auto(600);
-  chassis.set_drive_pid(10, 30);
-  chassis.wait_drive();
-  pros::delay(1000);
-  chassis.set_drive_pid(-10, 30);
-  chassis.wait_drive();
-  newFlywheelVelocity(87);
-  pros::delay(1000);
-
-  // Shoot 1 shot and 1 reserve shot
-  IndexAutoCtrl(1);
-  pros::delay(650);
-  IndexAutoCtrl(1);
-
-  pros::delay(250);
-  Intake_Auto(0);
-
-  //Go to roller and spin
-
-  chassis.set_drive_pid(2, 30);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-135, 75);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(24, 75);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-180, 75);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(12, 30);
-  chassis.wait_drive();
-
-  Roller_Auto(90);
-  pros::delay(500);
-
-  //Go under opponent high goal and wait
-
-  newFlywheelVelocity(110);
-
-  chassis.set_drive_pid(-6, 30);
-  chassis.wait_drive();
-
-  Intake_Auto(600);
-
-  chassis.set_turn_pid(90, 75);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(86, DRIVE_SPEED, true);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-40, 75);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(26, 35);
-  chassis.wait_drive();
-
-  chassis.set_turn_pid(-47, 30);
-  chassis.wait_drive();
-
-  Intake_Auto(-600);
-  Actuate_Auto(true);
 
   pros::delay(300);
+  Intake_Auto(-600);
+  Actuate_Auto(true);
+  indexer.move_velocity(0);
+  hopperActuator.set_value(true);
+
+  // Shoot 3 shots
+  pros::delay(250);
   IndexAutoCtrl(1);
-  pros::delay(1200);
+  pros::delay(800);
   IndexAutoCtrl(1);
-  pros::delay(1200);
-  IndexAutoCtrl(1);
+  pros::delay(800);
+  IndexAutoCtrl(2);
+  pros::delay(800);
+  hopperActuator.set_value(false);
+
+  // go to 2nd 3 stack
+  chassis.set_drive_pid(-13, 75, true);
+  chassis.wait_drive();
+  chassis.set_turn_pid(45, 70);
+  chassis.wait_drive();
+  Intake_Auto(600);
+  Actuate_Auto(true);
+  chassis.set_drive_pid(22, 75);
+  chassis.wait_drive();
   pros::delay(250);
 
-  newFlywheelVelocity(0);
+  // Get 2nd 3-stack
+  Actuate_Auto(false);
+  Intake_Auto(600);
+  chassis.set_drive_pid(-6, 30);
+  chassis.wait_drive();
+  chassis.set_drive_pid(6, 30);
+  chassis.wait_drive();
+  pros::delay(250);
+
+
+  // Turn to goal and get in shooting position
+  Intake_Auto(-600);
+  chassis.set_turn_pid(-20, 70);
+  chassis.wait_drive();
+  indexer.move_velocity(0);
+  hopperActuator.set_value(true);
+  pros::delay(800);
+
+  // Shoot 3 shots
+  IndexAutoCtrl(1);
+  pros::delay(850);
+  IndexAutoCtrl(1);
+  pros::delay(850);
+  IndexAutoCtrl(2);
+  pros::delay(800);
+
+  //drive back to low goal
+  hopperActuator.set_value(false);
+  chassis.set_drive_pid(-18, 75, true);
+  chassis.wait_drive();
+  chassis.set_turn_pid(90, 70);
+  chassis.wait_drive();
+  Intake_Auto(-600);  //outtake in case opponents missed disks are on field
+  chassis.set_drive_pid(28, 75);
+  chassis.wait_drive();
+  pros::delay(250);
+
+  //intake 3 by low goal
+  chassis.set_turn_pid(0,70);
+  chassis.wait_drive();
+  pros::delay(250);
+  Intake_Auto(600);
+  chassis.set_drive_pid(35,40,true);
+  chassis.wait_drive();
+  pros::delay(250);
+  indexer.move_velocity(0);
+  newFlywheelVelocity(90);
+
+  
+
+  //drive back to low goal entrance
+  //intake 3 by low goal
+  chassis.set_drive_pid(-35,75, true);
+  chassis.wait_drive();
+  chassis.set_turn_pid(-23,70);
+  chassis.wait_drive();
+  hopperActuator.set_value(true);
+  pros::delay(250);
+  // Shoot 3 shots
+  IndexAutoCtrl(1);
+  pros::delay(850);
+  IndexAutoCtrl(1);
+  pros::delay(850);
+  IndexAutoCtrl(2);
+  pros::delay(800);
+
+
+
+//   // Shoot 1 shot and 1 reserve shot
+//   IndexAutoCtrl(1);
+//   pros::delay(650);
+//   IndexAutoCtrl(1);
+
+//   pros::delay(250);
+//   Intake_Auto(0);
+
+//   //Go to roller and spin
+
+//   chassis.set_drive_pid(2, 30);
+//   chassis.wait_drive();
+
+//   chassis.set_turn_pid(-135, 75);
+//   chassis.wait_drive();
+
+//   chassis.set_drive_pid(24, 75);
+//   chassis.wait_drive();
+
+//   chassis.set_turn_pid(-180, 75);
+//   chassis.wait_drive();
+
+//   chassis.set_drive_pid(12, 30);
+//   chassis.wait_drive();
+
+//   Roller_Auto(90);
+//   pros::delay(500);
+
+//   //Go under opponent high goal and wait
+
+//   newFlywheelVelocity(110);
+
+//   chassis.set_drive_pid(-6, 30);
+//   chassis.wait_drive();
+
+//   Intake_Auto(600);
+
+//   chassis.set_turn_pid(90, 75);
+//   chassis.wait_drive();
+
+//   chassis.set_drive_pid(86, DRIVE_SPEED, true);
+//   chassis.wait_drive();
+
+//   chassis.set_turn_pid(-40, 75);
+//   chassis.wait_drive();
+
+//   chassis.set_drive_pid(26, 35);
+//   chassis.wait_drive();
+
+//   chassis.set_turn_pid(-47, 30);
+//   chassis.wait_drive();
+
+//   Intake_Auto(-600);
+//   Actuate_Auto(true);
+
+//   pros::delay(300);
+//   IndexAutoCtrl(1);
+//   pros::delay(1200);
+//   IndexAutoCtrl(1);
+//   pros::delay(1200);
+//   IndexAutoCtrl(1);
+//   pros::delay(250);
+
+//   newFlywheelVelocity(0);
 
     
 }

@@ -8,7 +8,7 @@ pros::Motor FlywheelMotor2(19, MOTOR_GEARSET_36);
 
 pros::Motor intake1(18, MOTOR_GEARSET_6, true);
 pros::Motor intake2(15, MOTOR_GEARSET_6, true);
-pros::Motor roller(15, MOTOR_GEARSET_36);
+pros::Motor roller(16, MOTOR_GEARSET_36);
 pros::Motor indexer(5, MOTOR_GEARSET_36, true);
 
 pros::Distance Hopper(16);

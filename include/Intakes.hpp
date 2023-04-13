@@ -4,5 +4,5 @@
 void Intake_Control(void*);
 void Intake_Auto(int x);
 void Actuate_Auto(bool active);
-void Roller_Auto(int x);
+void Roller_Auto(int y);
 void Intake_Actuate(void *);

@@ -14,7 +14,7 @@ void IndexCount(int count)
 {
     for (int i = 0; i < count; i++)
     {
-        indexer.move_relative(-600*count, 600);
+        indexer.move_relative(-400*count, 600);
         // pros::delay(2000);
     }
 }
@@ -41,7 +41,9 @@ void IndexOPCTRL(void *)
 }
 
 void IndexAutoCtrl(int x) { 
+    
     IndexCount(x); 
+    
 }
 
 
