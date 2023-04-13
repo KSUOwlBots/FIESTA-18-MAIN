@@ -107,7 +107,7 @@ void Frenzy_Rush_Mid()
   chassis.set_drive_pid(6, 30);
   chassis.wait_drive();
 
-  pros::delay(300);
+  pros::delay(1000);
   Intake_Auto(-600);
   Actuate_Auto(true);
   indexer.move_velocity(0);
@@ -188,8 +188,9 @@ void Frenzy_Rush_Mid()
   //intake 3 by low goal
   chassis.set_drive_pid(-35,75, true);
   chassis.wait_drive();
-  chassis.set_turn_pid(-23,70);
+  chassis.set_turn_pid(-33,70);
   chassis.wait_drive();
+  pros::delay(500);
   hopperActuator.set_value(true);
   pros::delay(250);
   // Shoot 3 shots
