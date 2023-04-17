@@ -85,6 +85,6 @@ void Roller_Auto(int y)
   }
   else if (y == 180)
   {
-    roller.move_relative(-600, 600);
+    roller.move_relative(800, 600);
   }
 }

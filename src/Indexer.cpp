@@ -14,8 +14,8 @@ void IndexCount(int count)
 {
     for (int i = 0; i < count; i++)
     {
-        indexer.move_relative(-400*count, 600);
-        // pros::delay(2000);
+        indexer.move_relative(-175*count, 600);
+        pros::delay(500);
     }
 }
 
