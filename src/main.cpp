@@ -173,7 +173,7 @@ void opcontrol()
 
   while (true)
   {
-    chassis.arcade_standard(ez::SINGLE);
+    chassis.arcade_flipped(ez::SINGLE);
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() + 1); }
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() - 1); }
 
