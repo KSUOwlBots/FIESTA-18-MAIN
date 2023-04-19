@@ -1,19 +1,22 @@
-#pragma once
+#ifndef HullMovingAverage_h
+#define HullMovingAverage_h
 
 #include "api.h"
-#include "main.h"
-#include "QuickQueue.hpp"
+#include "helpers/QuickQueue.hpp"
 
-class HMA {
+class HullMovingAverage {
 public:
-    HMA(int period);
+    HullMovingAverage(int period);
 
     void input(double data);
     double value();
     void clear();
+    void fill(int value);
     
     int size;
     QuickQueue wma1Input;
     QuickQueue wma2Input;
     QuickQueue combinedWMAs;
 };
+
+#endif

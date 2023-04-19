@@ -40,11 +40,14 @@
  * You should add more #includes here
  */
 #include "EZ-Template/api.hpp"
+#include "helpers/HullMovingAverage.hpp"
 #include "autons.hpp"
-#include "Flywheel.hpp"
 #include "Intakes.hpp"
 #include "Endgame.hpp"
 #include "Ports.hpp"
+#include "subsystems/Launcher.hpp"
+
+extern Launcher launcherSubsystem;
 
 // More includes here...
 //

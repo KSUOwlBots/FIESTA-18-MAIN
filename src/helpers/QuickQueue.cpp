@@ -1,4 +1,4 @@
-#include "QuickQueue.hpp"
+#include "helpers/QuickQueue.hpp"
 
 QuickQueue::QuickQueue(int givenSize)
 {
@@ -21,6 +21,11 @@ void QuickQueue::append(double value)
 void QuickQueue::clear()
 {
     for (int i = 0; i < this->size; i++) { this->data[i] = 0; }
+}
+
+void QuickQueue::fill(int value)
+{
+    for (int i = 0; i < this->size; i++) { this->data[i] = value; }
 }
 
 double QuickQueue::sum()

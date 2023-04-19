@@ -1,10 +1,10 @@
 #include "main.h"
+#include "helpers/HullMovingAverage.hpp"
 #include "ControllerPrinter.hpp"
 #include "EZ-Template/util.hpp"
 #include "Endgame.hpp"
 #include "Indexer.hpp"
 #include "Intakes.hpp"
-#include "Flywheel.hpp"
 #include "autons.hpp"
 #include "pros/adi.hpp"
 #include "pros/misc.h"
@@ -13,12 +13,15 @@
 #include "pros/rtos.h"
 #include "pros/rtos.hpp"
 
-/////
+
 // For instalattion, upgrading, documentations and tutorials, check out website!
 // https://ez-robotics.github.io/EZ-Template/
-/////
 
-// Chassis constructor
+
+
+Launcher launcherSubsystem(FlywheelMotor1, FlywheelMotor2);
+
+
 Drive chassis(
     // Left Chassis Ports (negative port will reverse it!)
     //   the first port is the sensored port (when trackers are not used!)
@@ -67,70 +70,45 @@ Drive chassis(
     // ,1
 );
 
-/**
- * Runs initialization code. This occurs as soon as the program is started.
- *
- * All other competition modes are blocked by initialize; it is recommended
- * to keep execution time for this mode under a few seconds.
- */
-void initialize() {
-  // Print our branding over your terminal :D
-  ez::print_ez_template();
 
-  pros::delay(
-      500); // Stop the user from doing anything while legacy ports configure.
+
+
+/**
+  ___       _ _   _       _ _         
+ |_ _|_ __ (_) |_(_) __ _| (_)_______ 
+  | || '_ \| | __| |/ _` | | |_  / _ \
+  | || | | | | |_| | (_| | | |/ /  __/
+ |___|_| |_|_|\__|_|\__,_|_|_/___\___|
+                                      
+*/
+void initialize()
+{
+  // ez::print_ez_template();
+  pros::delay(500); // Wait for legacy ports configure.
+
 
   // Configure your chassis controls
-  chassis.toggle_modify_curve_with_controller(
-      false); // Enables modifying the controller curve with buttons on the
-             // joysticks
+  chassis.toggle_modify_curve_with_controller(false);
   chassis.set_active_brake(0.05); // Sets the active brake kP. We recommend 0.1.
-  chassis.set_curve_default(
-      3, 3); // Defaults for curve. If using tank, only the first parameter is
-             // used. (Comment this line out if you have an SD card!)
-  default_constants(); // Set the drive to your own constants from autons.cpp!
-  exit_condition_defaults(); // Set the exit conditions to your own constants
-                             // from autons.cpp!
+  chassis.set_curve_default(3, 3);
+  default_constants();
+  exit_condition_defaults();
 
-  // These are already defaulted to these buttons, but you can change the
-  // left/right curve but tons here! chassis.set_left_curve_buttons
-  // (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If
-  // using tank, only the left side is used.
-  // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,
-  // pros::E_CONTROLLER_DIGITAL_A);
 
-  // Autonomous Selector using LLEMU
   ez::as::auton_selector.add_autons({
     Auton("You know exactly what the fuck goin on", Frenzy_Rush_Mid),
-    Auton("Cope Seethe", Default)});
-  // Initialize chassis and auton selector
+    Auton("Cope Seethe", Default)
+  });
   chassis.initialize();
-  ez::as::initialize(); 
-  
+  ez::as::initialize();
+
+  Task launcherSubsystem(launcherController);
 }
 
-/**
- * Runs while the robot is in the disabled state of Field Management System or
- * the VEX Competition Switch, following either autonomous or opcontrol. When
- * the robot is enabled, this task will exit.
- */
-void disabled() {
-  // . . .
-}
 
-/**
- * Runs after initialize(), and before autonomous when connected to the Field
- * Management System or the VEX Competition Switch. This is intended for
- * competition-specific initialization routines, such as an autonomous selector
- * on the LCD.
- *
- * This task will exit when the robot is enabled and autonomous or opcontrol
- * starts.
- */
-void competition_initialize() {
-  
-  // . . .
-}
+
+
+
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -178,8 +156,7 @@ bool antiRot = false;
 
 void opcontrol()
 {
-  //hopefully properly resets fw
-  newFlywheelVelocity(0);
+  launcherSubsystem.setTarget(70);
 
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
 
@@ -193,45 +170,69 @@ void opcontrol()
 
   bool driveStick = true;
 
+
   while (true)
   {
-    FlywheelOPCTRL();
     chassis.arcade_flipped(ez::SINGLE);
-    
-    // if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
-    //   driveStick = !driveStick;
-    // }
-    // if(driveStick == true){
-    // chassis.arcade_flipped(ez::SINGLE);
-    // }
-    // if(driveStick == false){
-    // chassis.arcade_standard(ez::SINGLE);
-    // }
-    
-    /*if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() + 1); }
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() - 1); }
+
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A))
     {
-      if (antiRot == true) { antiRot = false; }
-      chassis.arcade_flipped(ez::SINGLE);
+      std::cout
+      // << FlywheelMotor1.get_actual_velocity() 
+      // << " "
+      << FlywheelMotor2.get_actual_velocity()
+      << " "
+      // << launcherSubsystem.rightFlywheel.getVelocity()
+      // << " "
+      << launcherSubsystem.leftFlywheel.getVelocity()
+      << " "
+      << launcherSubsystem.leftFlywheel.flywheelMotor->get_current_draw()
+      << std::endl;
     }
-    else
-    {
-      if (antiRot == false)
-      {
-        antiRot = true;
-        chassis.imu.tare_yaw();
-        chassis.reset_drive_sensor();
-      }
 
-      double rotation = ez::util::clip_num(chassis.imu.get_yaw()*2, 45, -45);
-      double rightError = ez::util::clip_num(chassis.right_sensor(), 45, -45);
-      double leftError = ez::util::clip_num(chassis.left_sensor(), 45, -45);
-      double forBackError = -((rightError+leftError)/2);
-
-      chassis.set_tank(-rotation + forBackError, rotation + forBackError);
-      
-    }
-    */
-
-    pros::delay(ez::util::DELAY_TIME);  
+    pros::delay(ez::util::DELAY_TIME);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Runs while the robot is in the disabled state of Field Management System or
+ * the VEX Competition Switch, following either autonomous or opcontrol. When
+ * the robot is enabled, this task will exit.
+ */
+void disabled() { }
+
+
+
+
+
+/**
+ * Runs after initialize(), and before autonomous when connected to the Field
+ * Management System or the VEX Competition Switch. This is intended for
+ * competition-specific initialization routines, such as an autonomous selector
+ * on the LCD.
+ *
+ * This task will exit when the robot is enabled and autonomous or opcontrol
+ * starts.
+ */
+void competition_initialize() { }

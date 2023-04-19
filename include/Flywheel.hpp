@@ -2,7 +2,7 @@
 
 #include "api.h"
 #include "main.h"
-#include "HMA.hpp"
+#include "helpers/HullMovingAverage.hpp"
 
 void power(double percentage);
 double getFlywheelVelocity();

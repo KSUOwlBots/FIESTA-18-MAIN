@@ -1,9 +1,10 @@
+#include "helpers/HullMovingAverage.hpp"
 #include "Flywheel.hpp"
 #include "api.h"
 #include "Ports.hpp"
 #include "main.h"
 #include "pros/misc.h"
-#include "HMA.hpp"
+#include "helpers/Maths.hpp"
 
 
 /*
@@ -34,26 +35,12 @@ double previousVelocity = 0;
 double currentTargetVelocity = slowSpeed;
 
 //30, 40
-HMA speeds(30);
-HMA accels(40);
+HullMovingAverage speeds(30);
+HullMovingAverage accels(40);
 
 double integral = 0;
 
-double mean(double val1, double val2) { return ((val1 + val2) / 2); }
 
-double median(double arrOG[], int size)
-{
-    double arr[size];
-    for (int i = 0; i < size; i++) { arr[i] = arrOG[i]; }
-    std::sort(arr, arr + size);
-    if (size % 2 != 0)
-        return (double)arr[size / 2];
-    return (double)(arr[(size - 1) / 2] + arr[size / 2]) / 2.0;
-}
-
-double clamp(double val, double max, double min) {
-  return (std::max(std::min(val, max), min));
-}
 
 void power(double percentage)
 {

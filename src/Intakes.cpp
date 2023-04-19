@@ -52,11 +52,11 @@ void Intake_Actuate(void *)
   {
     if ((master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)))
     {
-      IntakeActuator.set_value(true);
+      IntakeActuator.set_value(false);
     }
     else
     {
-      IntakeActuator.set_value(false);
+      IntakeActuator.set_value(true);
     }
 
     pros::delay(20);

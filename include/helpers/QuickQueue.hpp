@@ -8,6 +8,7 @@ public:
     void pop();
     void append(double value);
     void clear();
+    void fill(int value);
     void print();
     double sum();
     double mean();

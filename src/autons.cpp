@@ -1,11 +1,11 @@
 #include "Endgame.hpp"
-#include "Flywheel.hpp"
 #include "Indexer.hpp"
 #include "Intakes.hpp"
 #include "autons.hpp"
 #include "main.h"
 #include "pros/rtos.h"
 #include "pros/rtos.hpp"
+#include "subsystems/Launcher.hpp"
 
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
@@ -77,8 +77,7 @@ void Frenzy_Rush_Mid()
 {
   // Setup
   pros::delay(300);
-  pros::Task IndexerTask(FlywheelAutoCtrl);
-  newFlywheelVelocity(70);
+  launcherSubsystem.setTarget(70);
   Actuate_Auto(true);
   Tongue.set_value(true);
   hopperActuator.set_value(true);
@@ -180,7 +179,7 @@ void Frenzy_Rush_Mid()
   chassis.wait_drive();
   pros::delay(250);
   indexer.move_velocity(0);
-  newFlywheelVelocity(90);
+  launcherSubsystem.setTarget(90);
 
   
 
@@ -213,8 +212,7 @@ void Frenzy_Rush_Mid()
 void Default()
 {
   //Set up functions
-  pros::Task IndexerTask(FlywheelAutoCtrl);
-  newFlywheelVelocity(73);
+  launcherSubsystem.setTarget(73);
   Tongue.set_value(true);
   hopperActuator.set_value(false);
 
@@ -294,7 +292,7 @@ void Default()
 
   //Aim at goal and fire
 
-  newFlywheelVelocity(68);
+  launcherSubsystem.setTarget(68);
 
   chassis.set_drive_pid(-8, 50);
   chassis.wait_drive();
@@ -319,7 +317,7 @@ void Default()
 
   //Pick up next triple stack
   
-  newFlywheelVelocity(60);
+  launcherSubsystem.setTarget(60);
 
   Intake_Auto(600);
 
@@ -350,7 +348,7 @@ void Default()
 
   //Go for 3 line
 
-  newFlywheelVelocity(68);
+  launcherSubsystem.setTarget(68);
 
   Intake_Auto(600);
 
