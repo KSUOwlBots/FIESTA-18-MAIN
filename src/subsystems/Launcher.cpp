@@ -19,12 +19,14 @@ void launcherController(void *)
             if (!launcherSubsystem.closeRange) 
             {
                 launcherSubsystem.setTarget(38, 38); 
-                Tongue.set_value(false);
+                Tongue.set_value(true);
+                launcherSubsystem.closeRange = !launcherSubsystem.closeRange;
             }
             else
             {
                 launcherSubsystem.setTarget(60); 
-                Tongue.set_value(true);
+                Tongue.set_value(false);
+                launcherSubsystem.closeRange = !launcherSubsystem.closeRange;
             }
         }
 

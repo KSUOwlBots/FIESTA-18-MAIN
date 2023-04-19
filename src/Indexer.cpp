@@ -10,13 +10,11 @@ bool brakeState = false;
 
 
 
-void IndexCount(int count)
+void IndexCount(int count, int moveDistance = 300)
 {
-    for (int i = 0; i < count; i++)
-    {
-        indexer.move_relative(-175*count, 600);
-        pros::delay(500);
-    }
+    indexer.tare_position();
+    indexer.move_relative(-moveDistance*count, 75);
+    while (indexer.get_position() > (-moveDistance*count)+5) { pros::delay(20); }
 }
 
 void IndexOPCTRL(void *)
@@ -25,7 +23,7 @@ void IndexOPCTRL(void *)
     {
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
         {
-            indexer.move_velocity(-75);           
+            indexer.move_velocity(-600);           
         }
         else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
             hopperActuator.set_value(false);

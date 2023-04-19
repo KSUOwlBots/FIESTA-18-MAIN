@@ -74,14 +74,14 @@ void Intake_Auto(int x) {
 
 void Actuate_Auto(bool active)
 {
-  IntakeActuator.set_value(active);
+  IntakeActuator.set_value(!active);
 }
 
 void Roller_Auto(int y)
 {
   if (y == 90)
   {
-    roller.move_relative(400, 600);
+    roller.move_relative(-400, 600);
   }
   else if (y == 180)
   {

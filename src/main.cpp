@@ -128,8 +128,8 @@ void autonomous() {
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD); // Set motors to hold.  This helps
                                              // autonomous consistency.
  //ez::as::auton_selector.call_selected_auton();
- //Frenzy_Rush_Mid();
- Default();
+ Frenzy_Rush_Mid();
+ //Default();
 //  pros::Task IndexerTask(FlywheelAutoCtrl);
 //   newFlywheelVelocity(65);
 //   pros::delay(2000);
@@ -173,7 +173,7 @@ void opcontrol()
 
   while (true)
   {
-    chassis.arcade_flipped(ez::SINGLE);
+    chassis.arcade_standard(ez::SINGLE);
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() + 1); }
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() - 1); }
 
