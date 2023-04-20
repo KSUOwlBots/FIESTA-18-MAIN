@@ -240,7 +240,7 @@ void Default()
 {
   //Set up functions
   launcherSubsystem.setTarget(73);
-  Tongue.set_value(true);
+  Tongue.set_value(false);
   hopperActuator.set_value(false);
 
   //Turn roller
@@ -262,7 +262,7 @@ void Default()
   chassis.set_turn_pid(-45, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(20, 50);
+  chassis.set_drive_pid(18, 50);
   chassis.wait_drive();
 
   chassis.set_turn_pid(90, 75);
@@ -288,17 +288,12 @@ void Default()
 
   pros::delay(250);
   Intake_Auto(-600);
-  Actuate_Auto(true);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(1);
-  pros::delay(1000);
-  IndexAutoCtrl(1);
-  pros::delay(1000);
-  IndexAutoCtrl(2);
-  pros::delay(1000);
+  IndexAutoCtrl(4);
+  pros::delay(250);
   hopperActuator.set_value(false);
 
   //Go for triple stack on line
