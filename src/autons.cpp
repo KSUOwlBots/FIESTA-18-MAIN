@@ -76,8 +76,7 @@ void modified_exit_condition() {
 void Frenzy_Rush_Mid()
 {
   // Setup
-  pros::delay(300);
-  launcherSubsystem.setTarget(63);
+  launcherSubsystem.setTarget(60,60);
   Actuate_Auto(true);
   Tongue.set_value(false);
   hopperActuator.set_value(true);
@@ -89,10 +88,10 @@ void Frenzy_Rush_Mid()
   pros::delay(200);
   chassis.set_drive_pid(2, 20);
   chassis.wait_drive();
-  chassis.set_turn_pid(-10, 25);
+  chassis.set_turn_pid(-11, 25);
   chassis.wait_drive();
-  chassis.set_drive_pid(17, 75, true);
-  pros::delay(750);
+  chassis.set_drive_pid(15, 75, true);
+  pros::delay(500);
 
   // Shoot 2 preloads
   IndexAutoCtrl(2);
@@ -101,10 +100,10 @@ void Frenzy_Rush_Mid()
   hopperActuator.set_value(false);
   Intake_Auto(600);
   Actuate_Auto(false);
-  pros::delay(1300);
+  pros::delay(750);
   chassis.set_drive_pid(-6, 30);
   chassis.wait_drive();
-  chassis.set_drive_pid(6, 30);
+  chassis.set_drive_pid(8, 30);
   chassis.wait_drive();
 
   pros::delay(1000);
@@ -116,7 +115,7 @@ void Frenzy_Rush_Mid()
 
   // Shoot 3 shots
   Intake_Auto(-600);
-  pros::delay(500);
+  pros::delay(250);
   IndexAutoCtrl(4);
   hopperActuator.set_value(false);
 
@@ -127,26 +126,26 @@ void Frenzy_Rush_Mid()
   chassis.wait_drive();
   Intake_Auto(600);
   Actuate_Auto(true);
-  chassis.set_drive_pid(22, 75);
+  chassis.set_drive_pid(21, 75);
   chassis.wait_drive();
   pros::delay(250);
 
   // Get 2nd 3-stack
   Actuate_Auto(false);
   Intake_Auto(600);
-  pros::delay(1300);
+  pros::delay(750);
   chassis.set_drive_pid(-6, 30);
   chassis.wait_drive();
   chassis.set_drive_pid(8, 30);
   chassis.wait_drive();
-  pros::delay(250);
-
+  pros::delay(500);
 
   // Turn to goal and get in shooting position
+  launcherSubsystem.setTarget(60, 60);
   Intake_Auto(-600);
   chassis.set_drive_pid(-2, 20);
   chassis.wait_drive();
-  chassis.set_turn_pid(-23, 70);
+  chassis.set_turn_pid(-21, 70);
   chassis.wait_drive();
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
@@ -171,19 +170,18 @@ void Frenzy_Rush_Mid()
   pros::delay(250);
 
   //intake 3 by low goal
-  chassis.set_turn_pid(0,70);
+  chassis.set_turn_pid(5,70);
   chassis.wait_drive();
   pros::delay(250);
   Intake_Auto(600);
   chassis.set_drive_pid(35,40,true);
   chassis.wait_drive();
   pros::delay(250);
-  launcherSubsystem.setTarget(62);
+  launcherSubsystem.setTarget(58, 58);
 
   
 
   //drive back to low goal entrance
-  //intake 3 by low goal
   chassis.set_drive_pid(-34,75, true);
   chassis.wait_drive();
   chassis.set_turn_pid(-30,70);
@@ -212,20 +210,34 @@ void Frenzy_Rush_Mid()
 
   //Low goal recycling
 
+  launcherSubsystem.setTarget(75, 75);
+
   chassis.set_turn_pid(90, 75);
   chassis.wait_drive();
   
   chassis.set_drive_pid(36, 30);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-45, 75);
+  chassis.set_turn_pid(-40, 75);
   chassis.wait_drive();
 
   Intake_Auto(0);
   Actuate_Auto(true);
   
-  chassis.set_drive_pid(36, 50);
+  chassis.set_drive_pid(24, 50);
   chassis.wait_drive();
+
+  chassis.set_turn_pid(-45, 30);
+  chassis.wait_drive();
+
+  //Fire 3 discs
+
+  indexer.move_velocity(0);
+  pros::delay(500);
+  hopperActuator.set_value(true);
+  pros::delay(250);
+  IndexAutoCtrl(3);
+
 }
 
 /*
@@ -239,13 +251,13 @@ void Frenzy_Rush_Mid()
 void Default()
 {
   //Set up functions
-  launcherSubsystem.setTarget(73);
+  launcherSubsystem.setTarget(59, 59);
   Tongue.set_value(false);
   hopperActuator.set_value(false);
 
   //Turn roller
 
-  chassis.set_drive_pid(-5, 20);
+  chassis.set_drive_pid(-7, 20);
 
   pros::delay(150);
   Roller_Auto(180);
@@ -270,7 +282,7 @@ void Default()
 
   //Spin second roller
 
-  chassis.set_drive_pid(-12, 50);
+  chassis.set_drive_pid(-16, 50);
   chassis.wait_drive();
 
   Roller_Auto(180);
@@ -278,7 +290,7 @@ void Default()
 
   //Aim at far goal
 
-  chassis.set_drive_pid(12, 75);
+  chassis.set_drive_pid(14, 75);
   chassis.wait_drive();
 
   chassis.set_turn_pid(0, 75);
@@ -292,15 +304,14 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(4);
-  pros::delay(250);
+  IndexAutoCtrl(3);
   hopperActuator.set_value(false);
 
   //Go for triple stack on line
 
   Intake_Auto(600);
 
-  chassis.set_drive_pid(-8, 75);
+  chassis.set_drive_pid(-5, 75);
   chassis.wait_drive();
 
   chassis.set_turn_pid(45, 75);
@@ -314,7 +325,7 @@ void Default()
 
   //Aim at goal and fire
 
-  launcherSubsystem.setTarget(68);
+  launcherSubsystem.setTarget(48.5, 48.5);
 
   chassis.set_drive_pid(-8, 50);
   chassis.wait_drive();
@@ -324,32 +335,26 @@ void Default()
 
   pros::delay(250);
   Intake_Auto(-600);
-  Actuate_Auto(true);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
- pros::delay(250);
-  IndexAutoCtrl(1);
-  pros::delay(1000);
-  IndexAutoCtrl(1);
-  pros::delay(1000);
-  IndexAutoCtrl(2);
   pros::delay(250);
+  IndexAutoCtrl(3);
   hopperActuator.set_value(false);
 
   //Pick up next triple stack
   
-  launcherSubsystem.setTarget(60);
+  launcherSubsystem.setTarget(40, 40);
 
   Intake_Auto(600);
 
-  chassis.set_turn_pid(80, 50);
+  chassis.set_turn_pid(85, 50);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(17, 75);
+  chassis.set_drive_pid(14, 50);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(17, 30);
+  chassis.set_drive_pid(20, 30);
   chassis.wait_drive();
 
   //Aim at goal and fire
@@ -359,90 +364,94 @@ void Default()
 
   pros::delay(250);
   Intake_Auto(-600);
-  Actuate_Auto(true);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(250);
   IndexAutoCtrl(3);
-  pros::delay(250);
   hopperActuator.set_value(false);
 
   //Go for 3 line
 
-  launcherSubsystem.setTarget(68);
+  launcherSubsystem.setTarget(46, 46);
 
   Intake_Auto(600);
 
-  chassis.set_drive_pid(-4, 30);
+  chassis.set_drive_pid(-7, 30);
   chassis.wait_drive();
 
   chassis.set_turn_pid(45, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(86, 50);
+  chassis.set_drive_pid(88, 50);
   chassis.wait_drive();
 
   //Aim at goal and fire
 
-  chassis.set_turn_pid(178, 75);
+  chassis.set_turn_pid(175, 75);
   chassis.wait_drive();
 
   pros::delay(250);
   Intake_Auto(-600);
-  Actuate_Auto(true);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(1);
-  pros::delay(1000);
-  IndexAutoCtrl(1);
-  pros::delay(1000);
-  IndexAutoCtrl(2);
-  pros::delay(250);
+  IndexAutoCtrl(3);
   hopperActuator.set_value(false);
 
   //Go for next triple stack
 
-  chassis.set_turn_pid(225, 75);
-  chassis.wait_drive();
-
-  chassis.set_drive_pid(6, 50);
-  chassis.wait_drive();
-
   Intake_Auto(600);
 
-  chassis.set_turn_pid(-45, 75);
+  chassis.set_drive_pid(-10, 30);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(12, 75);
+  chassis.set_turn_pid(270, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(18, 30);
+  chassis.set_drive_pid(24, 50);
   chassis.wait_drive();
+
+  chassis.set_turn_pid(280, 50);
+  chassis.wait_drive();
+
+  //Fire at goal
 
   pros::delay(250);
-
-  //Aim at goal and fire
-
-  chassis.set_turn_pid(-80, 75);
-  chassis.wait_drive();
-
-   pros::delay(250);
   Intake_Auto(-600);
-  Actuate_Auto(true);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(1);
-  pros::delay(1000);
-  IndexAutoCtrl(1);
-  pros::delay(1000);
-  IndexAutoCtrl(2);
-  pros::delay(250);
+  IndexAutoCtrl(3);
   hopperActuator.set_value(false);
+
+  //Go for second triple stack
+
+  launcherSubsystem.setTarget(40, 40);
+  Intake_Auto(600);
+
+  chassis.set_turn_pid(270, 30);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(30, 30);
+  chassis.wait_drive();
+
+  //Aim at goal and fire
+
+  chassis.set_turn_pid(282, 50);
+  chassis.wait_drive();
+
+  pros::delay(250);
+  Intake_Auto(-600);
+  indexer.move_velocity(0);
+  hopperActuator.set_value(true);
+
+  pros::delay(250);
+  IndexAutoCtrl(3);
+  hopperActuator.set_value(false);
+
 
 }
 

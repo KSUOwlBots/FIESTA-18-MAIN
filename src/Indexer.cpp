@@ -23,7 +23,7 @@ void IndexOPCTRL(void *)
     {
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
         {
-            indexer.move_velocity(-600);           
+            indexer.move_velocity(-75);           
         }
         else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
             hopperActuator.set_value(false);
