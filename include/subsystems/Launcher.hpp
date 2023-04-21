@@ -21,11 +21,14 @@ public:
     void toggleRange();
 
     double getTemperature();
-    bool isReadyToShoot();
+    bool isReady();
     bool closeRange;
 
     void setTarget(double rightTarget, double leftTarget);
     void setTarget(double target);
+
+    void shootDisc();
+    void shoot(int discs);
 };
 
 #endif

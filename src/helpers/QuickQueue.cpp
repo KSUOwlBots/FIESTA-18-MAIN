@@ -1,4 +1,5 @@
 #include "helpers/QuickQueue.hpp"
+#include "api.h"
 
 QuickQueue::QuickQueue(int givenSize)
 {
@@ -33,6 +34,14 @@ double QuickQueue::sum()
     double sum = 0;
     for (int i = 0; i < this->size; i++)
     { sum += this->data[i]; }
+    return sum;
+}
+
+double QuickQueue::sumError(double target)
+{
+    double sum = 0;
+    for (int i = 0; i < this->size; i++)
+    { sum += abs(target - this->data[i]); }
     return sum;
 }
 

@@ -73,6 +73,30 @@ void modified_exit_condition() {
 
 // START OF Fiesta AUTOS
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+  __  __       _       _          _         _                
+ |  \/  | __ _| |_ ___| |__      / \  _   _| |_ ___  _ __  _ 
+ | |\/| |/ _` | __/ __| '_ \    / _ \| | | | __/ _ \| '_ \(_)
+ | |  | | (_| | || (__| | | |  / ___ \ |_| | || (_) | | | |_ 
+ |_|  |_|\__,_|\__\___|_| |_| /_/   \_\__,_|\__\___/|_| |_(_)
+                                                             
+*/
 void Frenzy_Rush_Mid()
 {
   // Setup
@@ -94,7 +118,7 @@ void Frenzy_Rush_Mid()
   pros::delay(500);
 
   // Shoot 2 preloads
-  IndexAutoCtrl(2);
+  launcherSubsystem.shoot(2);
   
   // Collect 1st 3-stack
   hopperActuator.set_value(false);
@@ -116,7 +140,7 @@ void Frenzy_Rush_Mid()
   // Shoot 3 shots
   Intake_Auto(-600);
   pros::delay(250);
-  IndexAutoCtrl(4);
+  launcherSubsystem.shoot(4);
   hopperActuator.set_value(false);
 
   // go to 2nd 3 stack
@@ -154,7 +178,7 @@ void Frenzy_Rush_Mid()
   // Shoot 3 shots
   Intake_Auto(-600);
   pros::delay(500);
-  IndexAutoCtrl(4);
+  launcherSubsystem.shoot(4);
 
   //drive back to low goal
   hopperActuator.set_value(false);
@@ -194,7 +218,7 @@ void Frenzy_Rush_Mid()
   pros::delay(250);
   
   //Shoot 3
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
 
   //Intake single disc off line
   Intake_Auto(600);
@@ -236,18 +260,26 @@ void Frenzy_Rush_Mid()
   pros::delay(500);
   hopperActuator.set_value(true);
   pros::delay(250);
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
 
 }
 
-/*
-**     / ____|  | |      (_)  | |  | | 
-**    | (___    | |  __   __  | |  | |   ____
-**     \___ \   | |/ /   | |  | |  | |  / __|
-**     ____) |  |   <    | |  | |  | |  \__ \
-**    |_____/   |_|\_\   |_|  |_|  |_|  |___/
-*/
 
+
+
+
+
+
+
+
+/**
+  ____  _    _ _ _          _         _                
+ / ___|| | _(_) | |___     / \  _   _| |_ ___  _ __  _ 
+ \___ \| |/ / | | / __|   / _ \| | | | __/ _ \| '_ \(_)
+  ___) |   <| | | \__ \  / ___ \ |_| | || (_) | | | |_ 
+ |____/|_|\_\_|_|_|___/ /_/   \_\__,_|\__\___/|_| |_(_)
+                                                       
+*/
 void Default()
 {
   //Set up functions
@@ -304,7 +336,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
   hopperActuator.set_value(false);
 
   //Go for triple stack on line
@@ -343,7 +375,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
   hopperActuator.set_value(false);
 
   //Pick up next triple stack
@@ -372,7 +404,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
   hopperActuator.set_value(false);
 
   //Go for 3 line
@@ -401,7 +433,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
   hopperActuator.set_value(false);
 
   //Go for next triple stack
@@ -435,7 +467,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
   hopperActuator.set_value(false);
 
   //Go for second triple stack
@@ -467,7 +499,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
   hopperActuator.set_value(false);
 
   //Go for 3 line
@@ -496,7 +528,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  IndexAutoCtrl(3);
+  launcherSubsystem.shoot(3);
   hopperActuator.set_value(false);
 
   //Go to eg and park
@@ -511,9 +543,29 @@ void Default()
   chassis.wait_drive();
 }
 
-///
-// Swing Example
-///
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void swing_example() {
   // The first parameter is ez::LEFT_SWING or ez::RIGHT_SWING
   // The second parameter is target degrees

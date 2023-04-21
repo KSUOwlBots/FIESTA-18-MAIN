@@ -11,6 +11,7 @@ public:
     double targetSpeed;
     HullMovingAverage speedValues;
     HullMovingAverage accelerationValues;
+    QuickQueue motorSpeedHistory;
 
     Flywheel(Motor* motor);
 
@@ -28,16 +29,20 @@ public:
     void resetHMA();
     double getMotorVelocity();
 
+    void printSpeedValues();
+    bool isReady();
+
+    double findCorrectedPower(double target);
+    double integral;
+
 private:
     double previousVelocity;
     double kV;
     double kA;
-    double integral;
-    double derivative;
     double kP;
     double kI;
     double kD;
-    double lastError;
+    double previousError;
     bool recoupSpeed;
 };
 

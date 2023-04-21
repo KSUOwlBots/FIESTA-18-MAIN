@@ -13,3 +13,4 @@ void FlywheelOPCTRL();
 void FlywheelAutoCtrl(void *);
 double getFlywheelVelocityCheap();
 void newFlywheelVelocity(double target);
+void printSpeedValues();

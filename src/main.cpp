@@ -188,11 +188,13 @@ void opcontrol()
       // << " "
       << launcherSubsystem.leftFlywheel.getVelocity()
       << " "
-      << launcherSubsystem.leftFlywheel.flywheelMotor->get_current_draw()
+      << launcherSubsystem.leftFlywheel.motorSpeedHistory.sumError(launcherSubsystem.leftFlywheel.targetSpeed)
+      << " "
+      << launcherSubsystem.leftFlywheel.integral
       << std::endl;
     }
 
-    pros::delay(ez::util::DELAY_TIME);
+    pros::delay(20);
   }
 }
 
