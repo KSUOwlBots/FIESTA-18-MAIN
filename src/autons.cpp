@@ -317,17 +317,21 @@ void Default()
   chassis.set_turn_pid(45, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(15, 75);
+  Actuate_Auto(true);
+
+  chassis.set_drive_pid(15, 50);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(15, 30);
+  Actuate_Auto(false);
+
+  chassis.set_drive_pid(12, 30);
   chassis.wait_drive();
 
   //Aim at goal and fire
 
   launcherSubsystem.setTarget(48.5, 48.5);
 
-  chassis.set_drive_pid(-8, 50);
+  chassis.set_drive_pid(-5, 50);
   chassis.wait_drive();
 
   chassis.set_turn_pid(98, 75);
@@ -344,17 +348,17 @@ void Default()
 
   //Pick up next triple stack
   
-  launcherSubsystem.setTarget(40, 40);
+  launcherSubsystem.setTarget(41, 41);
 
   Intake_Auto(600);
 
   chassis.set_turn_pid(85, 50);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(14, 50);
+  chassis.set_drive_pid(16, 50);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(20, 30);
+  chassis.set_drive_pid(18, 30);
   chassis.wait_drive();
 
   //Aim at goal and fire
@@ -407,13 +411,20 @@ void Default()
   chassis.set_drive_pid(-10, 30);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(270, 75);
+  chassis.set_turn_pid(-90, 50);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(24, 50);
+  Actuate_Auto(true);
+
+  chassis.set_drive_pid(18, 30);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(280, 50);
+  Actuate_Auto(false);
+
+  chassis.set_drive_pid(6, 30);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-70, 50);
   chassis.wait_drive();
 
   //Fire at goal
@@ -432,15 +443,22 @@ void Default()
   launcherSubsystem.setTarget(40, 40);
   Intake_Auto(600);
 
-  chassis.set_turn_pid(270, 30);
+  chassis.set_turn_pid(-95, 30);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(30, 30);
+  Actuate_Auto(true);
+
+  chassis.set_drive_pid(12, 30);
+  chassis.wait_drive();
+  
+  Actuate_Auto(false);
+
+  chassis.set_drive_pid(18, 30);
   chassis.wait_drive();
 
   //Aim at goal and fire
 
-  chassis.set_turn_pid(282, 50);
+  chassis.set_turn_pid(-68, 50);
   chassis.wait_drive();
 
   pros::delay(250);
@@ -452,7 +470,45 @@ void Default()
   IndexAutoCtrl(3);
   hopperActuator.set_value(false);
 
+  //Go for 3 line
 
+  launcherSubsystem.setTarget(46, 46);
+
+  Intake_Auto(600);
+
+  chassis.set_drive_pid(-6, 50);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-135, 50);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(76, 50, true);
+  chassis.wait_drive();
+
+  //Aim at goal and fire
+
+  chassis.set_turn_pid(-6, 50);
+  chassis.wait_drive();
+
+  pros::delay(250);
+  Intake_Auto(-600);
+  indexer.move_velocity(0);
+  hopperActuator.set_value(true);
+
+  pros::delay(250);
+  IndexAutoCtrl(3);
+  hopperActuator.set_value(false);
+
+  //Go to eg and park
+
+  chassis.set_drive_pid(-24, 75);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(45, 50);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-12, 50);
+  chassis.wait_drive();
 }
 
 ///
