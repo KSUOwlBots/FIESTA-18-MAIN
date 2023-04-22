@@ -43,29 +43,19 @@ void Endgame_Fire(void *)
       
       //if(failsafe = true){
         //eg code here
-      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)/* && presses == 1*/)
+      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
       {
-        Endgame.set_value(true);
-      //  presses--;
+        Endgame_Chassis.set_value(true);
+        Endgame_Lift.set_value(true);
+        presses--;
       }
       else {
-        Endgame.set_value(false);
-        //SageWall.set_value(false);
+        Endgame_Chassis.set_value(false);
+        Endgame_Lift.set_value(false);
+        SageWall.set_value(false);
       }
 
-      // //wall code is fine here cuz the problem was with adding to the presses value
-      // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)&&presses ==0)
-      // {
-      //   SageWall.set_value(true);
-      //   pros::delay(250);
-      //   presses++;
-      // }
-
       pros::delay(20);
-      //}
-   
-    
-
   }
 }
 
@@ -73,9 +63,9 @@ void Endgame_fire_Auto(bool x)
 {
   if (x)
   {
-    Endgame.set_value(true);
+    Endgame_Chassis.set_value(true);
   }
   else {
-    Endgame.set_value(false);
+    Endgame_Chassis.set_value(false);
   }
 }

@@ -1,41 +1,24 @@
 #include "ControllerPrinter.hpp"
 #include "EZ-Template/util.hpp"
-#include "Flywheel.hpp"
 #include "api.h"
 #include "main.h"
 #include "pros/misc.h"
-
-char* SpeedLine()
-{
-    char* toReturn = new char[13];
-
-    int currentVelocity = ez::util::clip_num(getFlywheelVelocity(), 102, 89);
-
-    int i = 0;
-
-    for (; i < (currentVelocity-89); i++)
-    {
-        toReturn[i] = '#';
-    }
-
-    for (; i < (110 - 89); i++) {
-        toReturn[i] = ' ';
-    }
-
-    return toReturn;
-}
+#include "subsystems/Launcher.hpp"
+#include "subsystems/Hopper.hpp"
 
 void PrintInfo(void *)
 {
   while (true)
   {
-    master.print(0, 0, "%d / %d ", (int) launcherSubsystem.leftFlywheel.speedValues.value(), (int) launcherSubsystem.leftFlywheel.targetSpeed);
+    master.print(0, 0, "%d / %d / %d ", (int) launcherSubsystem.leftFlywheel.speedValues.value(), 
+                                        (int) launcherSubsystem.leftFlywheel.targetSpeed,
+                                        (int) launcherSubsystem.leftFlywheel.isReady(10, 10));
     
     pros::delay(50);
-    master.print(1, 0, "%d  ", (int) launcherSubsystem.leftFlywheel.getTemperature());
+    master.print(1, 0, "%d   ", (int) launcherSubsystem.leftFlywheel.getTemperature());
     
     pros::delay(50);
-    master.print(2, 0, "%d  ", (int) launcherSubsystem.leftFlywheel.motorSpeedHistory.sumError(launcherSubsystem.leftFlywheel.targetSpeed));
+    master.print(2, 0, "%d ", (int) hopperSubsystem.discs());
 
     pros::delay(250);
   }

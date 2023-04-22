@@ -21,14 +21,16 @@ public:
     void toggleRange();
 
     double getTemperature();
-    bool isReady();
+    bool isReady(int errorSumSize, int errorSumAcceptable);
     bool closeRange;
 
     void setTarget(double rightTarget, double leftTarget);
     void setTarget(double target);
 
-    void shootDisc();
-    void shoot(int discs);
+    void shootDisc(int errorSumSize, int errorSumAcceptable);
+    void shoot(int discs, int errorSumSize, int errorSumAcceptable);
+
+    void shootEmpty(int errorSumSize, int errorSumAcceptable);
 };
 
 #endif

@@ -118,7 +118,7 @@ void Frenzy_Rush_Mid()
   pros::delay(500);
 
   // Shoot 2 preloads
-  launcherSubsystem.shoot(2);
+  //launcherSubsystem.shoot(2);
   
   // Collect 1st 3-stack
   hopperActuator.set_value(false);
@@ -140,7 +140,7 @@ void Frenzy_Rush_Mid()
   // Shoot 3 shots
   Intake_Auto(-600);
   pros::delay(250);
-  launcherSubsystem.shoot(4);
+  //launcherSubsystem.shoot(4);
   hopperActuator.set_value(false);
 
   // go to 2nd 3 stack
@@ -178,7 +178,7 @@ void Frenzy_Rush_Mid()
   // Shoot 3 shots
   Intake_Auto(-600);
   pros::delay(500);
-  launcherSubsystem.shoot(4);
+  //launcherSubsystem.shoot(4);
 
   //drive back to low goal
   hopperActuator.set_value(false);
@@ -218,7 +218,7 @@ void Frenzy_Rush_Mid()
   pros::delay(250);
   
   //Shoot 3
-  launcherSubsystem.shoot(3);
+  //launcherSubsystem.shoot(3);
 
   //Intake single disc off line
   Intake_Auto(600);
@@ -260,7 +260,7 @@ void Frenzy_Rush_Mid()
   pros::delay(500);
   hopperActuator.set_value(true);
   pros::delay(250);
-  launcherSubsystem.shoot(3);
+  //launcherSubsystem.shoot(3);
 
 }
 
@@ -280,10 +280,18 @@ void Frenzy_Rush_Mid()
  |____/|_|\_\_|_|_|___/ /_/   \_\__,_|\__\___/|_| |_(_)
                                                        
 */
+void Default2()
+{
+  launcherSubsystem.setTarget(58, 58);
+  hopperActuator.set_value(true);
+  pros::delay(1000);
+  launcherSubsystem.shootEmpty(1, 5);
+}
+
 void Default()
 {
   //Set up functions
-  launcherSubsystem.setTarget(59, 59);
+  launcherSubsystem.setTarget(58, 58);
   Tongue.set_value(false);
   hopperActuator.set_value(false);
 
@@ -314,7 +322,7 @@ void Default()
 
   //Spin second roller
 
-  chassis.set_drive_pid(-16, 50);
+  chassis.set_drive_pid(-16, 30);
   chassis.wait_drive();
 
   Roller_Auto(180);
@@ -330,13 +338,12 @@ void Default()
 
   //Fire at goal
 
-  pros::delay(250);
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
-  pros::delay(250);
-  launcherSubsystem.shoot(3);
+  pros::delay(500);
+  launcherSubsystem.shootEmpty(10, 10);
   hopperActuator.set_value(false);
 
   //Go for triple stack on line
@@ -354,14 +361,18 @@ void Default()
   chassis.set_drive_pid(15, 50);
   chassis.wait_drive();
 
+  chassis.set_drive_pid(-2, 20);
+  chassis.wait_drive();
+
   Actuate_Auto(false);
+  pros::delay(500);
 
   chassis.set_drive_pid(12, 30);
   chassis.wait_drive();
 
   //Aim at goal and fire
 
-  launcherSubsystem.setTarget(48.5, 48.5);
+  launcherSubsystem.setTarget(53, 53);
 
   chassis.set_drive_pid(-5, 50);
   chassis.wait_drive();
@@ -369,18 +380,16 @@ void Default()
   chassis.set_turn_pid(98, 75);
   chassis.wait_drive();
 
-  pros::delay(250);
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
-
   pros::delay(250);
-  launcherSubsystem.shoot(3);
+  launcherSubsystem.shootEmpty(1, 5);
   hopperActuator.set_value(false);
 
   //Pick up next triple stack
   
-  launcherSubsystem.setTarget(41, 41);
+  launcherSubsystem.setTarget(43, 43);
 
   Intake_Auto(600);
 
@@ -398,18 +407,19 @@ void Default()
   chassis.set_turn_pid(106, 75);
   chassis.wait_drive();
 
-  pros::delay(250);
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shoot(3);
+  launcherSubsystem.shootEmpty(1, 5);
   hopperActuator.set_value(false);
+
+  
 
   //Go for 3 line
 
-  launcherSubsystem.setTarget(46, 46);
+  launcherSubsystem.setTarget(49, 49);
 
   Intake_Auto(600);
 
@@ -419,7 +429,7 @@ void Default()
   chassis.set_turn_pid(45, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(88, 50);
+  chassis.set_drive_pid(88, 75, true);
   chassis.wait_drive();
 
   //Aim at goal and fire
@@ -427,23 +437,24 @@ void Default()
   chassis.set_turn_pid(175, 75);
   chassis.wait_drive();
 
-  pros::delay(250);
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shoot(3);
+  launcherSubsystem.shootEmpty(10, 10);
   hopperActuator.set_value(false);
+
+  
 
   //Go for next triple stack
 
   Intake_Auto(600);
 
-  chassis.set_drive_pid(-10, 30);
+  chassis.set_drive_pid(-8, 75);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-90, 50);
+  chassis.set_turn_pid(270, 75);
   chassis.wait_drive();
 
   Actuate_Auto(true);
@@ -451,23 +462,27 @@ void Default()
   chassis.set_drive_pid(18, 30);
   chassis.wait_drive();
 
+  chassis.set_drive_pid(-2, 30);
+  chassis.wait_drive();
+
   Actuate_Auto(false);
+  pros::delay(500);
 
-  chassis.set_drive_pid(6, 30);
+  chassis.set_drive_pid(6, 15);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-70, 50);
+  chassis.set_turn_pid(280, 75);
   chassis.wait_drive();
 
+  pros::delay(500);
   //Fire at goal
 
-  pros::delay(250);
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shoot(3);
+  launcherSubsystem.shootEmpty(10, 10);
   hopperActuator.set_value(false);
 
   //Go for second triple stack
@@ -475,33 +490,37 @@ void Default()
   launcherSubsystem.setTarget(40, 40);
   Intake_Auto(600);
 
-  chassis.set_turn_pid(-95, 30);
+  chassis.set_turn_pid(265, 75);
   chassis.wait_drive();
 
   Actuate_Auto(true);
 
-  chassis.set_drive_pid(12, 30);
+  chassis.set_drive_pid(12, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-2, 30);
   chassis.wait_drive();
   
   Actuate_Auto(false);
+  pros::delay(500);
 
   chassis.set_drive_pid(18, 30);
   chassis.wait_drive();
 
   //Aim at goal and fire
 
-  chassis.set_turn_pid(-68, 50);
+  chassis.set_turn_pid(281, 75);
   chassis.wait_drive();
 
-  pros::delay(250);
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shoot(3);
+  launcherSubsystem.shootEmpty(10, 10);
   hopperActuator.set_value(false);
 
+  /*
   //Go for 3 line
 
   launcherSubsystem.setTarget(46, 46);
@@ -541,30 +560,8 @@ void Default()
 
   chassis.set_drive_pid(-12, 50);
   chassis.wait_drive();
+  */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void swing_example() {
   // The first parameter is ez::LEFT_SWING or ez::RIGHT_SWING

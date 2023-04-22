@@ -17,3 +17,8 @@ double median(double arrOG[], int size)
 double clamp(double val, double max, double min) {
   return (std::max(std::min(val, max), min));
 }
+
+bool inBetween(double val, double min, double max)
+{
+  return (val >= min && val <= max);
+}

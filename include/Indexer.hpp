@@ -4,6 +4,5 @@
 #include "main.h"
 
 
-void IndexSingle(int count);
+void IndexOneDisc();
 void IndexOPCTRL(void *);
-void IndexAutoCtrl(int x);

@@ -4,7 +4,7 @@
 #include "api.h"
 using namespace pros;
 
-Flywheel::Flywheel(Motor* motor) :speedValues(10), accelerationValues(40), motorSpeedHistory(15)
+Flywheel::Flywheel(Motor* motor) :speedValues(10), accelerationValues(40), motorSpeedHistory(10)
 {
     this->flywheelMotor = motor;
     this->targetSpeed = 0;
@@ -165,10 +165,10 @@ void Flywheel::printSpeedValues()
     {  std::cout << motorSpeedHistory.data[i] << "\t" << targetSpeed << std::endl;}
 }
 
-bool Flywheel::isReady()
+bool Flywheel::isReady(int errorSumSize, int errorSumAcceptable)
 {
     return  (
-            motorSpeedHistory.sumError(targetSpeed) < 11
+            motorSpeedHistory.sumError(targetSpeed, errorSumSize) < errorSumAcceptable
             );
 }
 

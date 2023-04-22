@@ -14,12 +14,14 @@
 #include "pros/rtos.hpp"
 
 
+
 // For instalattion, upgrading, documentations and tutorials, check out website!
 // https://ez-robotics.github.io/EZ-Template/
 
 
 
 Launcher launcherSubsystem(FlywheelMotor1, FlywheelMotor2);
+Hopper hopperSubsystem(15);
 
 
 Drive chassis(
@@ -102,7 +104,8 @@ void initialize()
   chassis.initialize();
   ez::as::initialize();
 
-  Task launcherSubsystem(launcherController);
+  Task launcherTask(launcherController);
+  Task hopperTask(hopperController);
 }
 
 
@@ -174,23 +177,26 @@ void opcontrol()
   while (true)
   {
     chassis.arcade_flipped(ez::SINGLE);
-    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() + 1); }
-    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() - 1); }
+    // if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() + 1); }
+    // if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) { launcherSubsystem.setTarget(launcherSubsystem.leftFlywheel.getTarget() - 1); }
 
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A))
     {
+      // std::cout
+      // << FlywheelMotor2.get_actual_velocity()
+      // << " "
+      // << launcherSubsystem.leftFlywheel.getVelocity()
+      // << " "
+      // << launcherSubsystem.leftFlywheel.motorSpeedHistory.sumError(launcherSubsystem.leftFlywheel.targetSpeed, 10)
+      // << " "
+      // << launcherSubsystem.leftFlywheel.integral
+      // << std::endl;
+
       std::cout
-      // << FlywheelMotor1.get_actual_velocity() 
-      // << " "
-      << FlywheelMotor2.get_actual_velocity()
+      << launcherSubsystem.leftFlywheel.motorSpeedHistory.sumError(launcherSubsystem.leftFlywheel.targetSpeed, 1)
       << " "
-      // << launcherSubsystem.rightFlywheel.getVelocity()
-      // << " "
-      << launcherSubsystem.leftFlywheel.getVelocity()
+      << launcherSubsystem.rightFlywheel.motorSpeedHistory.sumError(launcherSubsystem.rightFlywheel.targetSpeed, 1)
       << " "
-      << launcherSubsystem.leftFlywheel.motorSpeedHistory.sumError(launcherSubsystem.leftFlywheel.targetSpeed)
-      << " "
-      << launcherSubsystem.leftFlywheel.integral
       << std::endl;
     }
 

@@ -13,7 +13,8 @@ public:
     double sum();
     double mean();
     double wma();
-    double sumError(double target);
+    double sumError(double target, int errorSize);
+    double top();
     
     double * data;
     int size;

@@ -10,12 +10,6 @@ bool brakeState = false;
 
 
 
-void IndexCount(int count, int moveDistance = 300)
-{
-    indexer.tare_position();
-    indexer.move_relative(-moveDistance*count, 75);
-    while (indexer.get_position() > (-moveDistance*count)+5) { pros::delay(20); }
-}
 
 void IndexOPCTRL(void *)
 {
@@ -38,10 +32,14 @@ void IndexOPCTRL(void *)
     }
 }
 
-void IndexAutoCtrl(int x) { 
-    
-    IndexCount(x); 
-    
+void IndexOneDisc()
+{
+    while (hopperSubsystem.discs() == -1) { pros::delay(20); }
+    int initialDiscCount = hopperSubsystem.discs();
+    std::cout << "+- Initial disc count: " << initialDiscCount << std::endl;
+    while (hopperSubsystem.discs() == initialDiscCount || hopperSubsystem.discs() == -1) { indexer.move_velocity(-75); pros::delay(20); }
+    indexer.move_velocity(0);
+    std::cout << "+- Ending disc count: " << hopperSubsystem.discs() << std::endl;
 }
 
 

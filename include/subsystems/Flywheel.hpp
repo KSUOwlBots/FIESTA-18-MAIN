@@ -30,7 +30,7 @@ public:
     double getMotorVelocity();
 
     void printSpeedValues();
-    bool isReady();
+    bool isReady(int errorSumSize, int errorSumAcceptable);
 
     double findCorrectedPower(double target);
     double integral;

@@ -11,11 +11,12 @@ pros::Motor intake2(15, MOTOR_GEARSET_6, true);
 pros::Motor roller(16, MOTOR_GEARSET_36);
 pros::Motor indexer(5, MOTOR_GEARSET_6, true);
 
-pros::Distance Hopper(16);
+pros::Distance HopperDistance(17);
 
 //ADI Ports
 pros::ADIDigitalOut hopperActuator('G', false);
 pros::ADIDigitalOut IntakeActuator('F', true);
-pros::ADIDigitalOut Endgame('A', false);
-pros::ADIDigitalOut SageWall('B', false);
+pros::ADIDigitalOut Endgame_Chassis('H', false);
+pros::ADIDigitalOut Endgame_Lift('E', false);
+pros::ADIDigitalOut SageWall('D', false);
 pros::ADIDigitalOut Tongue('C');

@@ -10,14 +10,7 @@ void Intake_Control(void *)
   
   while (true)
   {
-    if (Hopper.get() <= hopperVal)
-    {
-      hopperFull =true;
-    }
-    else{
-      hopperFull = false;
-    }
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && hopperFull == false)
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && hopperSubsystem.discs() < 3)
     {
       intake1.move_velocity(-600);
       intake2.move_velocity(600);
@@ -30,7 +23,7 @@ void Intake_Control(void *)
       intake2.move_velocity(-600);
       roller.move_velocity(-600);
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)&&hopperFull == true){
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && hopperSubsystem.discs() == 3){
       intake1.move_velocity(600);
       intake2.move_velocity(-600);
       roller.move_velocity(600);

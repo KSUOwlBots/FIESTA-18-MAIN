@@ -46,8 +46,10 @@
 #include "Endgame.hpp"
 #include "Ports.hpp"
 #include "subsystems/Launcher.hpp"
+#include "subsystems/Hopper.hpp"
 
 extern Launcher launcherSubsystem;
+extern Hopper hopperSubsystem;
 
 // More includes here...
 //

@@ -9,11 +9,12 @@ extern pros::Motor intake2;
 extern pros::Motor roller;
 extern pros::Motor indexer;
 
-extern pros::Distance Hopper;
+extern pros::Distance HopperDistance;
 //ADI Ports
 extern pros::ADIDigitalOut IndexerActuator;
 extern pros::ADIDigitalOut hopperActuator;
 extern pros::ADIDigitalOut IntakeActuator;
-extern pros::ADIDigitalOut Endgame;
+extern pros::ADIDigitalOut Endgame_Chassis;
+extern pros::ADIDigitalOut Endgame_Lift;
 extern pros::ADIDigitalOut SageWall;
 extern pros::ADIDigitalOut Tongue;

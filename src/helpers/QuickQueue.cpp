@@ -29,6 +29,9 @@ void QuickQueue::fill(int value)
     for (int i = 0; i < this->size; i++) { this->data[i] = value; }
 }
 
+double QuickQueue::top()
+{ return this->data[this->size - 1]; }
+
 double QuickQueue::sum()
 {
     double sum = 0;
@@ -37,10 +40,10 @@ double QuickQueue::sum()
     return sum;
 }
 
-double QuickQueue::sumError(double target)
+double QuickQueue::sumError(double target, int errorSize)
 {
     double sum = 0;
-    for (int i = 0; i < this->size; i++)
+    for (int i = (this->size-1); i >this->size-(errorSize+1); i--)
     { sum += abs(target - this->data[i]); }
     return sum;
 }
