@@ -100,7 +100,7 @@ void modified_exit_condition() {
 void Frenzy_Rush_Mid()
 {
   // Setup
-  launcherSubsystem.setTarget(60, 60);
+  launcherSubsystem.setTarget(62, 62);
   Tongue.set_value(false);
   hopperActuator.set_value(false);
 
@@ -171,10 +171,10 @@ void Frenzy_Rush_Mid()
   chassis.set_drive_pid(-6, 75);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-12, 50);
+  chassis.set_turn_pid(-13, 50);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(6, 30);
+  chassis.set_drive_pid(8, 30);
   chassis.wait_drive();
 
   pros::delay(500);
@@ -190,13 +190,10 @@ void Frenzy_Rush_Mid()
 
   //Go for triple stack
 
-  chassis.set_drive_pid(-6, 30);
+  chassis.set_drive_pid(-10, 30);
   chassis.wait_drive();
 
   Intake_Auto(600);
-
-  chassis.set_drive_pid(-2, 30);
-  chassis.wait_drive();
 
   chassis.set_turn_pid(45, 75);
   chassis.wait_drive();
@@ -222,7 +219,10 @@ void Frenzy_Rush_Mid()
 
   //Turn to goal and fire
 
-  chassis.set_turn_pid(-27.5, 75);
+  chassis.set_turn_pid(-29, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(6, 50);
   chassis.wait_drive();
 
   pros::delay(500);
@@ -238,16 +238,43 @@ void Frenzy_Rush_Mid()
 
   //Get 3 discs on barrier
 
-  chassis.set_drive_pid(-42, 75, true);
+  chassis.set_turn_pid(-27.5, 30);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(3, 75);
+  chassis.set_drive_pid(-40, 50, true);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(10, 75);
   chassis.wait_drive();
 
   Intake_Auto(600);
 
   chassis.set_drive_pid(36, 30);
   chassis.wait_drive();
+
+  //Aim at goal and fire
+
+  pros::delay(500);
+
+  chassis.set_drive_pid(-36, 75, true);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-29, 75);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(40, 75, true);
+  chassis.wait_drive();
+
+  //Fire at goal
+
+  Intake_Auto(-600);
+  indexer.move_velocity(0);
+  hopperActuator.set_value(true);
+
+  pros::delay(500);
+  launcherSubsystem.shootEmpty(20, 7);
+  pros::delay(250);
+  hopperActuator.set_value(false);
 
 }
 
