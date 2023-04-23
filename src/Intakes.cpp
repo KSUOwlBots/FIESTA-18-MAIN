@@ -14,19 +14,19 @@ void Intake_Control(void *)
     {
       intake1.move_velocity(-600);
       intake2.move_velocity(600);
-      roller.move_velocity(600);
+      roller.move_velocity(-600);
     }
     
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
     {
       intake1.move_velocity(600);
       intake2.move_velocity(-600);
-      roller.move_velocity(-600);
+      roller.move_velocity(600);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && hopperSubsystem.discs() == 3){
       intake1.move_velocity(600);
       intake2.move_velocity(-600);
-      roller.move_velocity(600);
+      roller.move_velocity(-600);
     }
     else
     {
@@ -74,10 +74,10 @@ void Roller_Auto(int y)
 {
   if (y == 90)
   {
-    roller.move_relative(-400, 600);
+    roller.move_relative(800, 600);
   }
   else if (y == 180)
   {
-    roller.move_relative(800, 600);
+    roller.move_relative(-1600, 600);
   }
 }

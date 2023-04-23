@@ -4,7 +4,7 @@
 #include "api.h"
 using namespace pros;
 
-Flywheel::Flywheel(Motor* motor) :speedValues(10), accelerationValues(40), motorSpeedHistory(10)
+Flywheel::Flywheel(Motor* motor) :speedValues(10), accelerationValues(40), motorSpeedHistory(20)
 {
     this->flywheelMotor = motor;
     this->targetSpeed = 0;

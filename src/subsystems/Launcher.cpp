@@ -19,13 +19,13 @@ void launcherController(void *)
         {
             if (!launcherSubsystem.closeRange) 
             {
-                launcherSubsystem.setTarget(38, 38); 
+                launcherSubsystem.setTarget(39, 39); 
                 Tongue.set_value(true);
                 launcherSubsystem.closeRange = !launcherSubsystem.closeRange;
             }
             else
             {
-                launcherSubsystem.setTarget(0); 
+                launcherSubsystem.setTarget(70); 
                 Tongue.set_value(false);
                 launcherSubsystem.closeRange = !launcherSubsystem.closeRange;
             }
@@ -55,7 +55,7 @@ void Launcher::shoot(int discs, int errorSumSize, int errorSumAcceptable)
     for (int i = 0; i < discs; i++)
     {
         shootDisc(errorSumSize, errorSumAcceptable);
-        if (i != discs-1)  {  pros::delay(100);  }
+        pros::delay(100);
     }
 }
 
@@ -66,15 +66,15 @@ void Launcher::shootEmpty(int errorSumSize, int errorSumAcceptable)
     bool print = true;
     while(hopperSubsystem.discs() != 0)
     {
-        if (print) {  std::cout << "+- Waiting to be ready to fire..." << std::endl;  print = false;  }
+        std::cout << "+- Waiting to be ready to fire... (" << hopperSubsystem.discs() << ")" << std::endl;
         if (this->isReady(errorSumSize, errorSumAcceptable))
         {
             std::cout << "+- Ready! Shooting 1 disc!" << std::endl;
             IndexOneDisc();
-            if (hopperSubsystem.discs() > 1) { pros::delay(100); }
-            print = true;
+            pros::delay(100);
         }
         else { pros::delay(20); }
     }
-    std::cout << "Done shooting all discs!" << std::endl;
+    std::cout << hopperSubsystem.discs() << std::endl;
+    std::cout << "Done shooting all discs!\n\n" << std::endl;
 }

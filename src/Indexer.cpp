@@ -37,7 +37,7 @@ void IndexOneDisc()
     while (hopperSubsystem.discs() == -1) { pros::delay(20); }
     int initialDiscCount = hopperSubsystem.discs();
     std::cout << "+- Initial disc count: " << initialDiscCount << std::endl;
-    while (hopperSubsystem.discs() == initialDiscCount || hopperSubsystem.discs() == -1) { indexer.move_velocity(-75); pros::delay(20); }
+    while (hopperSubsystem.discs() == initialDiscCount || hopperSubsystem.discs() == -1) { indexer.move_velocity(-300); pros::delay(20); }
     indexer.move_velocity(0);
     std::cout << "+- Ending disc count: " << hopperSubsystem.discs() << std::endl;
 }

@@ -14,6 +14,8 @@ public:
     Hopper(int distanceValueSize);
 
     int discs();
+
+    int mostRecentValue;
 };
 
 #endif
