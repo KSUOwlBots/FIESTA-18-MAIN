@@ -43,11 +43,17 @@ void Endgame_Fire(void *)
       
       //if(failsafe = true){
         //eg code here
-      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
+      if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT))
       {
         Endgame_Chassis.set_value(true);
+      }
+      else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))
+      {
         Endgame_Lift.set_value(true);
-        presses--;
+      }
+      else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
+      {
+        SageWall.set_value(true);
       }
       else {
         Endgame_Chassis.set_value(false);
