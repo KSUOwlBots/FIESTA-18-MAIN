@@ -91,8 +91,8 @@ void initialize()
 
   // Configure your chassis controls
   chassis.toggle_modify_curve_with_controller(false);
-  chassis.set_active_brake(0.05); // Sets the active brake kP. We recommend 0.1.
-  chassis.set_curve_default(3, 3);
+  chassis.set_active_brake(0.01); // Sets the active brake kP. We recommend 0.1.
+  chassis.set_curve_default(5, 5);
   default_constants();
   exit_condition_defaults();
 
@@ -131,12 +131,12 @@ void autonomous() {
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD); // Set motors to hold.  This helps
                                              // autonomous consistency.
 //ez::as::auton_selector.call_selected_auton();
-Frenzy_Rush_Mid();
-// Default();
-//  pros::Task IndexerTask(FlywheelAutoCtrl);
-//   newFlywheelVelocity(65);
-//   pros::delay(2000);
-//    IndexAutoCtrl(1);
+// Frenzy_Rush_Mid();
+Default();
+//pros::Task IndexerTask(FlywheelAutoCtrl);
+//newFlywheelVelocity(65);
+//pros::delay(2000);
+//IndexAutoCtrl(1);
 
  
 }

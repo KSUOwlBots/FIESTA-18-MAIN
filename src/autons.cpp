@@ -73,22 +73,6 @@ void modified_exit_condition() {
 
 // START OF Fiesta AUTOS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
   __  __       _       _          _         _                
  |  \/  | __ _| |_ ___| |__      / \  _   _| |_ ___  _ __  _ 
@@ -100,7 +84,7 @@ void modified_exit_condition() {
 void Frenzy_Rush_Mid()
 {
   // Setup
-  launcherSubsystem.setTarget(62, 62);
+  launcherSubsystem.setTarget(80);
   Tongue.set_value(false);
   hopperActuator.set_value(false);
 
@@ -108,7 +92,7 @@ void Frenzy_Rush_Mid()
   chassis.set_drive_pid(-6, 20);
   chassis.wait_drive();
   Roller_Auto(90);
-  pros::delay(200);
+  pros::delay(250);
 
   //Go for single disc on line
   Intake_Auto(600);
@@ -124,7 +108,7 @@ void Frenzy_Rush_Mid()
 
   pros::delay(500);
 
-  chassis.set_turn_pid(-4, 75);
+  chassis.set_turn_pid(-5, 75);
   chassis.wait_drive();
 
   chassis.set_drive_pid(6, 30);
@@ -135,7 +119,7 @@ void Frenzy_Rush_Mid()
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(20, 7);
+  launcherSubsystem.shootEmpty(10,7);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -148,7 +132,7 @@ void Frenzy_Rush_Mid()
   chassis.set_turn_pid(55, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(9, 75);
+  chassis.set_drive_pid(8, 75);
   chassis.wait_drive();
 
   Actuate_Auto(true);
@@ -159,7 +143,7 @@ void Frenzy_Rush_Mid()
   Actuate_Auto(false);
   pros::delay(500);
 
-  launcherSubsystem.setTarget(59,59);
+  launcherSubsystem.setTarget(74);
 
   chassis.set_drive_pid(-5, 30);
   chassis.wait_drive();
@@ -168,10 +152,10 @@ void Frenzy_Rush_Mid()
   chassis.wait_drive();
 
   //Aim at goal and fire
-  chassis.set_drive_pid(-6, 75);
+  chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-13, 50);
+  chassis.set_turn_pid(-14, 50);
   chassis.wait_drive();
 
   chassis.set_drive_pid(8, 30);
@@ -184,13 +168,13 @@ void Frenzy_Rush_Mid()
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(20, 7);
+  launcherSubsystem.shootEmpty(10, 7);
   pros::delay(250);
   hopperActuator.set_value(false);
 
   //Go for triple stack
 
-  chassis.set_drive_pid(-10, 30);
+  chassis.set_drive_pid(-8, 30);
   chassis.wait_drive();
 
   Intake_Auto(600);
@@ -209,7 +193,7 @@ void Frenzy_Rush_Mid()
   Actuate_Auto(false);
   pros::delay(500);
 
-  launcherSubsystem.setTarget(57,57);
+  launcherSubsystem.setTarget(71);
 
   chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
@@ -219,24 +203,26 @@ void Frenzy_Rush_Mid()
 
   //Turn to goal and fire
 
-  chassis.set_turn_pid(-29, 75);
+  chassis.set_turn_pid(-30, 75);
   chassis.wait_drive();
 
   chassis.set_drive_pid(6, 50);
   chassis.wait_drive();
 
-  pros::delay(500);
+  pros::delay(100);
 
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(20, 7);
+  launcherSubsystem.shootEmpty(10, 7);
   pros::delay(250);
   hopperActuator.set_value(false);
 
   //Get 3 discs on barrier
+
+  launcherSubsystem.setTarget(71);
 
   chassis.set_turn_pid(-27.5, 30);
   chassis.wait_drive();
@@ -244,7 +230,7 @@ void Frenzy_Rush_Mid()
   chassis.set_drive_pid(-40, 50, true);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(10, 75);
+  chassis.set_turn_pid(10, 50);
   chassis.wait_drive();
 
   Intake_Auto(600);
@@ -259,7 +245,7 @@ void Frenzy_Rush_Mid()
   chassis.set_drive_pid(-36, 75, true);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-29, 75);
+  chassis.set_turn_pid(-30, 75);
   chassis.wait_drive();
 
   chassis.set_drive_pid(40, 75, true);
@@ -272,19 +258,11 @@ void Frenzy_Rush_Mid()
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(20, 7);
+  launcherSubsystem.shootEmpty(10, 7);
   pros::delay(250);
   hopperActuator.set_value(false);
 
 }
-
-
-
-
-
-
-
-
 
 /**
   ____  _    _ _ _          _         _                
@@ -296,16 +274,18 @@ void Frenzy_Rush_Mid()
 */
 void Default2()
 {
-  launcherSubsystem.setTarget(58, 58);
+  /*
+  launcherSubsystem.setTarget(75, 75);
   hopperActuator.set_value(true);
   pros::delay(1000);
   launcherSubsystem.shootEmpty(1, 5);
+  */
 }
 
 void Default()
 {
   //Set up functions
-  launcherSubsystem.setTarget(56, 56);
+  launcherSubsystem.setTarget(75, 75);
   Tongue.set_value(false);
   hopperActuator.set_value(false);
 
@@ -315,7 +295,7 @@ void Default()
 
   pros::delay(250);
   Roller_Auto(180);
-  pros::delay(250);
+  pros::delay(500);
 
   chassis.wait_drive();
 
@@ -357,7 +337,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(10, 10);
+  launcherSubsystem.shootEmpty(10, 8);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -390,25 +370,25 @@ void Default()
 
   //Aim at goal and fire
 
-  launcherSubsystem.setTarget(55, 55);
+  launcherSubsystem.setTarget(73, 73);
 
   chassis.set_drive_pid(-5, 50);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(98, 75);
+  chassis.set_turn_pid(100, 75);
   chassis.wait_drive();
 
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 10);
+  launcherSubsystem.shootEmpty(10, 8);
   pros::delay(250);
   hopperActuator.set_value(false);
 
   //Pick up next triple stack
   
-  launcherSubsystem.setTarget(43, 43);
+  launcherSubsystem.setTarget(50, 50);
 
   Intake_Auto(600);
 
@@ -441,7 +421,7 @@ void Default()
 
   //Go for 3 line
 
-  launcherSubsystem.setTarget(49, 49);
+  launcherSubsystem.setTarget(70, 70);
 
   Intake_Auto(600);
 
@@ -464,7 +444,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 10);
+  launcherSubsystem.shootEmpty(10, 8);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -508,12 +488,12 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 10);
+  launcherSubsystem.shootEmpty(10, 8);
   hopperActuator.set_value(false);
 
   //Go for second triple stack
 
-  launcherSubsystem.setTarget(40, 40);
+  launcherSubsystem.setTarget(50, 50);
   Intake_Auto(600);
 
   chassis.set_turn_pid(265, 75);
@@ -546,7 +526,7 @@ void Default()
 
   //Go for midline discs
 
-  launcherSubsystem.setTarget(57, 57);
+  launcherSubsystem.setTarget(62, 62);
 
   Intake_Auto(600);
 
@@ -575,7 +555,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 10);
+  launcherSubsystem.shootEmpty(1, 5);
   hopperActuator.set_value(false);
   pros::delay(250);
 
@@ -602,7 +582,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 10);
+  launcherSubsystem.shootEmpty(1, 5);
   hopperActuator.set_value(false);
   pros::delay(250);
 

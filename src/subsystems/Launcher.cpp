@@ -19,13 +19,13 @@ void launcherController(void *)
         {
             if (!launcherSubsystem.closeRange) 
             {
-                launcherSubsystem.setTarget(39, 39); 
+                launcherSubsystem.setTarget(40, 40); 
                 Tongue.set_value(true);
                 launcherSubsystem.closeRange = !launcherSubsystem.closeRange;
             }
             else
             {
-                launcherSubsystem.setTarget(70); 
+                launcherSubsystem.setTarget(70, 70); 
                 Tongue.set_value(false);
                 launcherSubsystem.closeRange = !launcherSubsystem.closeRange;
             }
@@ -39,7 +39,7 @@ void launcherController(void *)
 
 
 void Launcher::setTarget(double rightTarget, double leftTarget) { this->rightFlywheel.setTarget(rightTarget); this->leftFlywheel.setTarget(leftTarget); }
-void Launcher::setTarget(double target) { this->setTarget(0.5*target, target); }
+void Launcher::setTarget(double target) { this->setTarget(target, target); }
 
 bool Launcher::isReady(int errorSumSize, int errorSumAcceptable) { return (leftFlywheel.isReady(errorSumSize, errorSumAcceptable) && rightFlywheel.isReady(errorSumSize, errorSumAcceptable)); }
 
