@@ -39,7 +39,7 @@ void launcherController(void *)
 
 
 void Launcher::setTarget(double rightTarget, double leftTarget) { this->rightFlywheel.setTarget(rightTarget); this->leftFlywheel.setTarget(leftTarget); }
-void Launcher::setTarget(double target) { this->setTarget(target, target); }
+void Launcher::setTarget(double target) { this->setTarget(0.8*target, target); }
 
 bool Launcher::isReady(int errorSumSize, int errorSumAcceptable) { return (leftFlywheel.isReady(errorSumSize, errorSumAcceptable) && rightFlywheel.isReady(errorSumSize, errorSumAcceptable)); }
 
@@ -70,7 +70,16 @@ void Launcher::shootEmpty(int errorSumSize, int errorSumAcceptable)
         if (this->isReady(errorSumSize, errorSumAcceptable))
         {
             std::cout << "+- Ready! Shooting 1 disc!" << std::endl;
-            IndexOneDisc();
+
+            while (hopperSubsystem.discs() == -1) { pros::delay(20); }
+            int initialDiscCount = hopperSubsystem.discs();
+            std::cout << "+- Initial disc count: " << initialDiscCount << std::endl;
+            while (hopperSubsystem.discs() == initialDiscCount || hopperSubsystem.discs() == -1) { indexer.move_velocity(-300); pros::delay(20); }
+            indexer.move_velocity(300);
+            pros::delay(750);
+            indexer.move_velocity(0);
+            std::cout << "+- Ending disc count: " << hopperSubsystem.discs() << std::endl;
+
             pros::delay(100);
         }
         else { pros::delay(20); }

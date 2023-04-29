@@ -84,7 +84,7 @@ void modified_exit_condition() {
 void Frenzy_Rush_Mid()
 {
   // Setup
-  launcherSubsystem.setTarget(80);
+  launcherSubsystem.setTarget(79);
   Tongue.set_value(false);
   hopperActuator.set_value(false);
 
@@ -108,7 +108,7 @@ void Frenzy_Rush_Mid()
 
   pros::delay(500);
 
-  chassis.set_turn_pid(-5, 75);
+  chassis.set_turn_pid(-6, 75);
   chassis.wait_drive();
 
   chassis.set_drive_pid(6, 30);
@@ -119,7 +119,7 @@ void Frenzy_Rush_Mid()
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(10,7);
+  launcherSubsystem.shootEmpty(15,6);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -143,7 +143,7 @@ void Frenzy_Rush_Mid()
   Actuate_Auto(false);
   pros::delay(500);
 
-  launcherSubsystem.setTarget(74);
+  launcherSubsystem.setTarget(71);
 
   chassis.set_drive_pid(-5, 30);
   chassis.wait_drive();
@@ -155,20 +155,19 @@ void Frenzy_Rush_Mid()
   chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-14, 50);
+  chassis.set_turn_pid(-15, 50);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(8, 30);
+  chassis.set_drive_pid(7, 30);
   chassis.wait_drive();
 
   pros::delay(500);
-
   Intake_Auto(-600);
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(10, 7);
+  launcherSubsystem.shootEmpty(15, 6);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -193,7 +192,7 @@ void Frenzy_Rush_Mid()
   Actuate_Auto(false);
   pros::delay(500);
 
-  launcherSubsystem.setTarget(71);
+  launcherSubsystem.setTarget(68);
 
   chassis.set_drive_pid(-6, 50);
   chassis.wait_drive();
@@ -203,7 +202,7 @@ void Frenzy_Rush_Mid()
 
   //Turn to goal and fire
 
-  chassis.set_turn_pid(-30, 75);
+  chassis.set_turn_pid(-31, 75);
   chassis.wait_drive();
 
   chassis.set_drive_pid(6, 50);
@@ -216,13 +215,13 @@ void Frenzy_Rush_Mid()
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(10, 7);
+  launcherSubsystem.shootEmpty(15, 6);
   pros::delay(250);
   hopperActuator.set_value(false);
 
   //Get 3 discs on barrier
 
-  launcherSubsystem.setTarget(71);
+  launcherSubsystem.setTarget(69);
 
   chassis.set_turn_pid(-27.5, 30);
   chassis.wait_drive();
@@ -248,7 +247,7 @@ void Frenzy_Rush_Mid()
   chassis.set_turn_pid(-30, 75);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(40, 75, true);
+  chassis.set_drive_pid(38, 75, true);
   chassis.wait_drive();
 
   //Fire at goal
@@ -258,7 +257,7 @@ void Frenzy_Rush_Mid()
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(10, 7);
+  launcherSubsystem.shootEmpty(15, 6);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -337,7 +336,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(500);
-  launcherSubsystem.shootEmpty(10, 8);
+  launcherSubsystem.shootEmpty(15, 6);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -382,7 +381,7 @@ void Default()
   indexer.move_velocity(0);
   hopperActuator.set_value(true);
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 8);
+  launcherSubsystem.shootEmpty(15, 6);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -413,7 +412,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(1, 5);
+  launcherSubsystem.shootEmpty(1, 2);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -444,7 +443,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 8);
+  launcherSubsystem.shootEmpty(15, 6);
   pros::delay(250);
   hopperActuator.set_value(false);
 
@@ -488,7 +487,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 8);
+  launcherSubsystem.shootEmpty(15, 6);
   hopperActuator.set_value(false);
 
   //Go for second triple stack
@@ -520,7 +519,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(10, 10);
+  launcherSubsystem.shootEmpty(15, 8);
   hopperActuator.set_value(false);
   pros::delay(250);
 
@@ -555,7 +554,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(1, 5);
+  launcherSubsystem.shootEmpty(1, 2);
   hopperActuator.set_value(false);
   pros::delay(250);
 
@@ -582,7 +581,7 @@ void Default()
   hopperActuator.set_value(true);
 
   pros::delay(250);
-  launcherSubsystem.shootEmpty(1, 5);
+  launcherSubsystem.shootEmpty(1, 2);
   hopperActuator.set_value(false);
   pros::delay(250);
 

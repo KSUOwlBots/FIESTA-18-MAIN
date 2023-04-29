@@ -6,6 +6,8 @@
 #include "pros/rtos.hpp"
 
 
+bool lockDrive = false;
+
 void Endgame_Fire(void *)
 {
   double startTime, skillsTime, matchTime, deployTime, driveTime;
@@ -54,11 +56,27 @@ void Endgame_Fire(void *)
       else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
       {
         SageWall.set_value(true);
+        lockDrive = true;
+        // chassis.set_active_brake(.8);
+
+        // chassis.imu.tare_yaw();
+        // chassis.reset_drive_sensor();
+      
       }
       else {
         Endgame_Chassis.set_value(false);
         Endgame_Lift.set_value(false);
         SageWall.set_value(false);
+      }
+
+      if (lockDrive)
+      {
+        
+        // double rotation = ez::util::clip_num(chassis.imu.get_yaw()*2, 45, -45);
+        // double rightError = ez::util::clip_num(chassis.right_sensor(), 45, -45);
+        // double leftError = ez::util::clip_num(chassis.left_sensor(), 45, -45);
+        // double forBackError = -((rightError+leftError)/2);
+        // chassis.set_tank(-rotation + forBackError, rotation + forBackError);
       }
 
       pros::delay(20);
